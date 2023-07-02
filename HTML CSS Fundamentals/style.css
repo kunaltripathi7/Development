@@ -1,0 +1,217 @@
+h1,
+h2,
+h3 {
+  color: #1bbfd8;
+}
+
+h1 {
+  font-size: 26px;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+h4 {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+p {
+  font-size: 22px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+ul,
+ol {
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
+
+li {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* Id and class Selectors */
+#author {
+  font-style: italic;
+  font-size: 18px;
+}
+
+#copyright {
+  font-size: 16px;
+}
+
+.related-author {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.related {
+  list-style: none;
+}
+
+/* Psuedo Classes -> CSS automatically selects
+li : nth-Child(specify the number of child) { --> odd/even ->selects odd/even list points
+changes
+}
+Misconception about pseudo classes:
+-> article p:first-child {
+} it will not work as first child of article is header not a paragraph, for it to work make it a paragraph
+*/
+
+/*  it searches every element even inside ones (element inside element like article-> header so it searches in header as well) in the html and if its first child is a paragraph -> property will be applied.*/
+/* p:first-child {
+  color: #ff5349;
+} 
+Pseudo classes work well with structured elements like lists, etc and doesn't work well with classes where we mix up a lot of elements cuz somewhere p would be second/third child
+*/
+li:last-child {
+  margin-bottom: 0;
+}
+
+/* Styling Links :
+# a { color : } -> not a good practice, use pseudo class instead
+
+The links are defined as order -> LVHA
+*/
+
+/* only targets elements that are actual links having href attribute */
+a:link {
+  color: #1098ad;
+  text-decoration: none;
+}
+
+/* after visiting the link */
+a:visited {
+  color: #1098ad;
+}
+
+a:hover {
+  color: #ff5349;
+  font-weight: bold;
+  text-decoration: underline #ff5349;
+  /* Shorthand property of text decoration */
+}
+
+/* During the click */
+a:active {
+  background-color: #000000;
+  font-style: italic;
+}
+/* Priority Selectors -> !important(avoid)>inline style>id>class>element>universal selector>parent properties (if there are many of them last one in the code is applied) */
+/* Universal Selector *
+
+* {
+  border-top = 10px solid #23232; useful for applying properties to all elements which do not get inherited
+}
+
+*/
+.post-image {
+  width: 100%;
+  height: auto;
+}
+
+nav a:link {
+  display: inline-block;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+
+nav a:link:last-child {
+  margin-right: 0;
+}
+
+/* LIKE BUTTON */
+.post-header {
+  margin-bottom: 40px;
+}
+.like-button {
+  cursor: pointer;
+  font-size: 22px;
+  padding: 15px;
+
+  /* ABSOLUTE POSITIONING */
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+
+/* PSEUDO ELEMENTS */
+h1::first-letter {
+  font-style: normal;
+  margin-right: 5px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* won't get inherited by child -> impractical */
+  border-top: 10px solid #1098ad;
+  color: #444;
+  font-family: sans-serif;
+  display: relative;
+}
+
+.main-header {
+  background-color: #f7f7f7;
+  padding: 20px 10px;
+  margin-bottom: 60px;
+  height: 80px;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+aside {
+  background-color: #f7f7f7;
+  border-top: 5px solid #1098ad;
+  border-bottom: 5px solid #1098ad;
+  padding: 50px 0;
+  width: 500px;
+}
+
+nav {
+  font-size: 18px;
+}
+
+article {
+  margin-bottom: 60px;
+}
+/* footer p::after {
+  content: "BOTTOM";
+  display: inline-block;
+  font-size: 14px;
+  background-color: #ff5349;
+  color: #fff;
+  position: absolute;
+  bottom: 25px;
+  right: 15px;
+} */
+
+/* Notes 
+/* Colors :
+-> left side of any color top to down is grey shade. 
+Shorthand -> #44444 -> hash444 
+
+-> footer p {    // footer/header is also an element
+  font-size: 16px;
+} */
