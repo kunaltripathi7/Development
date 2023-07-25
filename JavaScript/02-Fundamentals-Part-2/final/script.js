@@ -343,8 +343,8 @@ const jonas = {
   friends: ['Michael', 'Peter', 'Steven'],
   hasDriversLicense: true,
 
-  // calcAge: function (birthYeah) {
-  //   return 2037 - birthYeah;
+  // calcAge: function (birthYeah) {                        function attached to a object is called a method
+  //   return 2037 - birthYeah;                     
   // }
 
   // calcAge: function () {
@@ -367,6 +367,8 @@ console.log(jonas.calcAge());
 console.log(jonas.age);
 console.log(jonas.age);
 console.log(jonas.age);
+
+// Arrays are also objects.
 
 // Challenge
 // "Jonas is a 46-year old teacher, and he has a driver's license"
