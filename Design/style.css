@@ -28,7 +28,7 @@ body {
 
 header,
 section {
-  margin-bottom: 48px;
+  margin-bottom: 96px;
 }
 
 h2 {
@@ -52,7 +52,7 @@ header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 80px;
-  margin-top: 48px;
+  margin-top: 64px;
 }
 
 .header-text-box {
@@ -60,10 +60,12 @@ header {
 }
 
 h1 {
-  margin-bottom: 24px;
+  margin-bottom: 48px;
   font-size: 44px;
   line-height: 1.1;
   letter-spacing: -1px;
+  /* text-shadow: 0 7px 10px rgba(0, 0, 0, 0.444); */
+  /* spread radius is absent */
 }
 
 .header-text {
@@ -76,10 +78,13 @@ h1 {
   color: #fff;
   background-color: #087f5b;
   display: inline-block;
+  border-radius: 100px;
+  /* use large value than the height of the element to play it safe */
 }
 
 img {
   width: 100%;
+  border-radius: 12px;
 }
 
 /* FEATURES */
@@ -87,7 +92,7 @@ img {
   width: 32px;
   height: 32px;
   stroke: #087f5b;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
 }
 
 .features-title {
@@ -105,6 +110,7 @@ img {
   background-color: #087f5b;
   color: #fff;
   padding: 24px;
+  border-radius: 12px;
 }
 
 .testimonial-box {
@@ -123,20 +129,34 @@ img {
   margin-bottom: 24px;
   font-size: 18px;
   line-height: 1.7;
+  color: #e6fcf5;
+}
+.testimonial-author {
+  color: #20c997;
 }
 
 /* CHAIRS */
 .chair-box {
-  padding: 24px;
+  padding: 32px;
 }
 
 h3 {
   margin-bottom: 24px;
 }
 
+/* Shadows */
+.chair {
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.076);
+}
+
+.chair img {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .chair-details {
   list-style: none;
-  margin-bottom: 24px;
+  margin-bottom: 48px;
 }
 
 .chair-details li {
@@ -160,6 +180,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   font-size: 18px;
+  align-items: center;
 }
 
 .btn--big {

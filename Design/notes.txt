@@ -1,8 +1,11 @@
-Design guidelines : https://onedrive.live.com/view.aspx?resid=91C9044F4856827B%21876&id=documents&wd=target%28Development.one%7CB1B17E26-2D98-41ED-A5F9-9E4F3F55A300%2FDesign%7C4A90B4AF-FE23-41F0-9392-9788439E6720%2F%29
-
+Design guidelines : https://onedrive.live.com/view.aspx?resid=91C9044F4856827B%21876&id=documents&wd=target%28Development.one%7CB1B17E26-2D98-41ED-A5F9-9E4F3F55A300%2FDesign%7C6E42068B-7F5A-438B-9BD8-E21C05EBC5BF%2F%29
 TYPOGRAPHY:
 #  sans -> inter, open sans, roboto, montserrat, work sans, lato
 # serif -> meriiweather, aleo, playfair, cormorant, cardo, lora
 
-
-
+Shadows: # Creates depth.
+WhiteSpace:
+# Horizontally less in comparison to vertical.
+UX :
+# Design -> How it works.
+User Goals align with business goals.
