@@ -1,0 +1,8 @@
+{
+  "Print to console": {
+    "scope": "javascript,typescript",
+    "prefix": "dv",
+    "body": ["document.querySelector('').value;"],
+    "description": "select an element's Value"
+  }
+}

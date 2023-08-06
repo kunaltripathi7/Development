@@ -1,0 +1,12 @@
+Project Guidelines :
+  Initial :
+    > Plan on a txt file or diagram.net.
+
+  Code  :
+    > Use Functions DRY Principle even for small code create functions.
+    > Storing all ele to be used.
+
+
+
+  Optimising & Rectifying Code :
+    > Look the optimised version for that code and compare.
