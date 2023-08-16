@@ -813,8 +813,8 @@ console.log(menu);
 const str = 'Jonas';
 const letters = [...str, ' ', 'S.'];
 console.log(letters);
-console.log(...str);
-// console.log(`${...str} Schmedtmann`);
+console.log(...str); // prints each letter
+console.log(`${...str} Schmedtmann`); it won't work cuz ${} doesn't expects multiple values with comma
 
 // Real-world example
 const ingredients = [
@@ -902,7 +902,7 @@ console.log(main, secondary);
 [main, secondary] = [secondary, main];
 console.log(main, secondary);
 
-// Receive 2 return values from a function
+// Receive 2 return values from a function (more optimised or handy way of receiving an array)
 const [starter, mainCourse] = restaurant.order(2, 0);
 console.log(starter, mainCourse);
 

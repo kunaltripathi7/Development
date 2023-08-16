@@ -343,7 +343,7 @@ const jonas = {
   friends: ['Michael', 'Peter', 'Steven'],
   hasDriversLicense: true,
 
-  // calcAge: function (birthYeah) {                        function attached to a object is called a method
+  // calcAge: function (birthYeah) {                  function attached to a object is called a method
   //   return 2037 - birthYeah;                     
   // }
 

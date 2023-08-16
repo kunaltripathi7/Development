@@ -14,12 +14,12 @@ function calcAge(birthYear) {
     if (birthYear >= 1981 && birthYear <= 1996) {
       var millenial = true;
       // Creating NEW variable with same name as outer scope's variable
-      const firstName = 'Steven';
+      const firstName = 'Steven'; 
 
-      // Reasssigning outer scope's variable
+      // Reasssigning outer scope's variable || not in java
       output = 'NEW OUTPUT!';
 
-      const str = `Oh, and you're a millenial, ${firstName}`;
+      const str = `Oh, and you're a millenial, ${firstName}`; // It will give output steven as js will start the lookup from the current scope chain to parent scopes and wherever it finds the variable first it will print it.
       console.log(str);
 
       function add(a, b) {
@@ -28,7 +28,7 @@ function calcAge(birthYear) {
     }
     // console.log(str);
     console.log(millenial);
-    // console.log(add(2, 3));
+    // console.log(add(2, 3)); without using strict mode, it gives no error
     console.log(output);
   }
   printAge();
@@ -83,7 +83,7 @@ function deleteShoppingCart() {
 var x = 1;
 let y = 2;
 const z = 3;
-
+// window is the global object. variables declared with var create a property in window object.
 console.log(x === window.x);
 console.log(y === window.y);
 console.log(z === window.z);
@@ -95,13 +95,13 @@ console.log(this);
 
 const calcAge = function (birthYear) {
   console.log(2037 - birthYear);
-  console.log(this);
+  console.log(this); // in sloppy mode it will point to window object.
 };
 calcAge(1991);
 
 const calcAgeArrow = birthYear => {
   console.log(2037 - birthYear);
-  console.log(this);
+  console.log(this); // points to window obj (lexical this)
 };
 calcAgeArrow(1980);
 
@@ -109,16 +109,16 @@ const jonas = {
   year: 1991,
   calcAge: function () {
     console.log(this);
-    console.log(2037 - this.year);
+    console.log(2037 - this.year); // example to demonstrate use of this
   },
-};
-jonas.calcAge();
+}; 
+jonas.calcAge(); // this points to object calling the method not in the obj in which it was declared.
 
 const matilda = {
   year: 2017,
 };
 
-matilda.calcAge = jonas.calcAge;
+matilda.calcAge = jonas.calcAge; // method borrowing
 matilda.calcAge();
 
 const f = jonas.calcAge;
@@ -136,14 +136,14 @@ const jonas = {
     // console.log(this);
     console.log(2037 - this.year);
 
-    // Solution 1
+    // Solution 1  pre es6
     // const self = this; // self or that
     // const isMillenial = function () {
     //   console.log(self);
     //   console.log(self.year >= 1981 && self.year <= 1996);
     // };
 
-    // Solution 2
+    // Solution 2   use arrow functions for using this inside methods
     const isMillenial = () => {
       console.log(this);
       console.log(this.year >= 1981 && this.year <= 1996);
@@ -167,11 +167,13 @@ const addExpr = function (a, b) {
 addExpr(2, 5);
 addExpr(2, 5, 8, 12);
 
-var addArrow = (a, b) => {
+var addArrow = (a, b) => {         // arguments keyword only exists in regular functions  && expressions and not in Arrow functions.
   console.log(arguments);
   return a + b;
 };
 addArrow(2, 5, 8);
+
+// can use arguments cuz its an array and loop over them to deal with multiple arguments.
 
 
 ///////////////////////////////////////
@@ -211,7 +213,7 @@ const marriedJessica = jessica;
 marriedJessica.lastName = 'Davis';
 console.log('Before marriage:', jessica);
 console.log('After marriage: ', marriedJessica);
-// marriedJessica = {};
+// marriedJessica = {}; we are changing the memory address of const not permissible
 
 // Copying objects
 const jessica2 = {
@@ -221,7 +223,7 @@ const jessica2 = {
   family: ['Alice', 'Bob'],
 };
 
-const jessicaCopy = Object.assign({}, jessica2);
+const jessicaCopy = Object.assign({}, jessica2); // creates a shallow copy if the object had another internal object it will be the same.
 jessicaCopy.lastName = 'Davis';
 
 jessicaCopy.family.push('Mary');
@@ -230,4 +232,6 @@ jessicaCopy.family.push('John');
 console.log('Before marriage:', jessica2);
 console.log('After marriage: ', jessicaCopy);
 */
+
+// Deep cloning is done by using an external library lowdash.
 
