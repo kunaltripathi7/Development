@@ -100,5 +100,5 @@ const oneWord = function (str) {
 //   Advantages :
 // It makes it easy to split up the code to more reusable and interconnected part.
 // It implements abstraction. some levels of abstraction. The code would have worked fine if we have written all the logic inside the main func but it helped to achieve abstraction.
-  
+  // f fadfa f
   
