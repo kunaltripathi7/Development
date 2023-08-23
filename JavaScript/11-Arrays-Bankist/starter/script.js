@@ -782,3 +782,4 @@ GOOD LUCK 😀
 // const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood); //slice() creates a shallow copy
 // console.log(dogsSorted);
 //fdsafafadf 
+gsfdgdsggfgsdgfdsg
