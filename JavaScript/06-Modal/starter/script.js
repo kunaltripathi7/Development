@@ -1,5 +1,5 @@
 'use strict';
-// documen.querySelectorAll -> selects all of the ele's (it behaves like an array) whereas querySelector selects the first occurence.
+// document.querySelectorAll -> selects all of the ele's (it behaves like an array) whereas querySelector selects the first occurence.
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.close-modal');

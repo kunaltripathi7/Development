@@ -127,19 +127,19 @@ bmw.accelerate();
 
 ///////////////////////////////////////
 // ES6 Classes
-
+ // behind the scenes classes are still functions.
 // Class expression
 // const PersonCl = class {}
 
 // Class declaration
 class PersonCl {
-  constructor(fullName, birthYear) {
+  constructor(fullName, birthYear) { //needs to be constructor name
     this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
   // Instance methods
-  // Methods will be added to .prototype property
+  // Methods will be added to .prototype property // by default
   calcAge() {
     console.log(2037 - this.birthYear);
   }
@@ -148,13 +148,13 @@ class PersonCl {
     console.log(`Hey ${this.fullName}`);
   }
 
-  get age() {
+  get age() { // just like a property
     return 2037 - this.birthYear;
   }
 
   // Set a property that already exists
   set fullName(name) {
-    if (name.includes(' ')) this._fullName = name;
+    if (name.includes(' ')) this._fullName = name; // name the property a new name to avoid conflict.
     else alert(`${name} is not a full name!`);
   }
 
@@ -211,7 +211,7 @@ console.log(account.movements);
 
 
 ///////////////////////////////////////
-// Object.create
+// Object.create    /// can set our own prototype
 const PersonProto = {
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -232,7 +232,7 @@ steven.calcAge();
 console.log(steven.__proto__ === PersonProto);
 
 const sarah = Object.create(PersonProto);
-sarah.init('Sarah', 1979);
+sarah.init('Sarah', 1979); // nyi property automatically bana dega
 sarah.calcAge();
 */
 
@@ -298,12 +298,12 @@ Person.prototype.calcAge = function () {
 };
 
 const Student = function (firstName, birthYear, course) {
-  Person.call(this, firstName, birthYear);
+  Person.call(this, firstName, birthYear); // in a regular func call this points to undefined
   this.course = course;
 };
 
 // Linking prototypes
-Student.prototype = Object.create(Person.prototype);
+Student.prototype = Object.create(Person.prototype); // needs to be done before cuz it will return an empty object.
 
 Student.prototype.introduce = function () {
   console.log(`My name is ${this.firstName} and I study ${this.course}`);
