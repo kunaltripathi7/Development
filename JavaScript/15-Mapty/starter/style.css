@@ -50,9 +50,10 @@ a:visited {
 }
 
 .logo {
-  height: 5.2rem;
+  /* height: 5.2rem; */
+  height: 25rem;
   align-self: center;
-  margin-bottom: 4rem;
+  /* margin-bottom: 4rem; */
 }
 
 .workouts {
