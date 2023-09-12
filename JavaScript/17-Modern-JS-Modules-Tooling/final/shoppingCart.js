@@ -1,7 +1,7 @@
 // Exporting module
 console.log('Exporting module');
 
-// Blocking code
+// Blocking code // the module importing this module will wait to execute until this blocking code
 // console.log('Start fetching users');
 // await fetch('https://jsonplaceholder.typicode.com/users');
 // console.log('Finish fetching users');
@@ -20,6 +20,8 @@ const totalQuantity = 23;
 export { totalPrice, totalQuantity as tq };
 
 export default function (product, quantity) {
+  //default export -> only one thing, not the name or var
   cart.push({ product, quantity });
   console.log(`${quantity} ${product} added to cart`);
 }
+//When you reference a module in a browser, the variables, functions, and classes within that module are not directly exposed to the global scope.
