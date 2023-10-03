@@ -16,10 +16,10 @@ function calcAge(birthYear) {
       // Creating NEW variable with same name as outer scope's variable
       const firstName = 'Steven'; 
 
-      // Reasssigning outer scope's variable || not in java
+      // Reasssigning outer scope's variable 
       output = 'NEW OUTPUT!';
 
-      const str = `Oh, and you're a millenial, ${firstName}`; // It will give output steven as js will start the lookup from the current scope chain to parent scopes and wherever it finds the variable first it will print it.
+      const str = `Oh, and you're a millenial, ${firstName}`; // It will give output steven as js will start the lookup from the current scope chain to parent scopes and wherever it finds the variable first it will print it. || cuz let & const have block level scoping.
       console.log(str);
 
       function add(a, b) {
@@ -32,7 +32,6 @@ function calcAge(birthYear) {
     console.log(output);
   }
   printAge();
-
   return age;
 }
 
@@ -88,7 +87,6 @@ console.log(x === window.x);
 console.log(y === window.y);
 console.log(z === window.z);
 
-
 ///////////////////////////////////////
 // The this Keyword in Practice
 console.log(this);
@@ -98,13 +96,14 @@ const calcAge = function (birthYear) {
   console.log(this); // in sloppy mode it will point to window object.
 };
 calcAge(1991);
+//If a function is called on its own, this will usually refer to the global object (window in browsers).
+// In strict mode, this will be undefined if a function is called on its own.
 
 const calcAgeArrow = birthYear => {
   console.log(2037 - birthYear);
   console.log(this); // points to window obj (lexical this)
 };
 calcAgeArrow(1980);
-
 const jonas = {
   year: 1991,
   calcAge: function () {
@@ -234,4 +233,3 @@ console.log('After marriage: ', jessicaCopy);
 */
 
 // Deep cloning is done by using an external library lowdash.
-

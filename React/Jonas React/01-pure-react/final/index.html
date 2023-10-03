@@ -13,15 +13,17 @@
       src="https://unpkg.com/react@18/umd/react.development.js"
       crossorigin
     ></script>
+    <!-- contains all the react stuff states, components, etc. -->
     <script
       src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
       crossorigin
     ></script>
+    <!-- contains stuff related to rendering layer used to render components into dom -->
 
     <script>
       function App() {
         // const time = new Date().toLocaleTimeString();
-        const [time, setTime] = React.useState(new Date().toLocaleTimeString());
+        const [time, setTime] = React.useState(new Date().toLocaleTimeString()); // React is a big obj provided
 
         React.useEffect(function () {
           setInterval(function () {
@@ -29,11 +31,11 @@
           }, 1000);
         }, []);
 
-        return React.createElement("header", null, `Hello React! It's ${time}`);
+        return React.createElement("header", null, `Hello React! It's ${time}`); // cuz we don't have the transpiling tooling here
       }
 
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(React.createElement(App));
+      const root = ReactDOM.createRoot(document.getElementById("root")); // ReactDom coming from 2nd imported script
+      root.render(React.createElement(App)); // telling react to render || createEle -> alternative to jsx || react ele's are lightweight desc of ui
     </script>
   </body>
 </html>

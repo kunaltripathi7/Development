@@ -52,7 +52,7 @@ console.log(typeof year);
 
 console.log(typeof null);
 
-////////////////////////////////////
+////////////////////////////////////  IIFE -> Invoked
 // let, const and var
 let age = 30;
 age = 31;

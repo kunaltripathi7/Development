@@ -75,7 +75,6 @@ const yearsUntilRetirement = (birthYeah, firstName) => {
 
 console.log(yearsUntilRetirement(1991, 'Jonas')); console.log(yearsUntilRetirement(1980, 'Bob'));
 
-
 ///////////////////////////////////////
 // Functions Calling Other Functions
 function cutFruitPieces(fruit) {
@@ -190,8 +189,8 @@ console.log(friends);
 // Using const only primitive values are immutable as we can change values in array cuz of how js stores things in memory
 
 const firstName = 'Jonas';
-const jonas = [firstName, 'Schmedtmann', 2037 - 1991, 'teacher', friends];
-console.log(jonas);                                               all of them are expressions js expects an exp at each point || function is a value thatswhy its stored in a variable
+const jonas = [firstName, 'Schmedtmann', 2037 - 1991, 'teacher', friends]; all of them are expressions js expects an exp at each point || function is a value thatswhy its stored in a variable
+console.log(jonas); 
 console.log(jonas.length);
 
 // Exercise

@@ -7,4 +7,4 @@ console.log(typeof 424);
 // use cons>let
 const bd = 28392;
 // (creates global object) lastName = "xyz";
-lastName = "xxxx";
+lastName = "xxxx"; // not prefer | on window object prprty
