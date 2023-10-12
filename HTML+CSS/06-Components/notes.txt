@@ -1,0 +1,2 @@
+ele -> components -> layout -> Webpage
+> take components designs from the video.
