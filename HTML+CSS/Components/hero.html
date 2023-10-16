@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubrik:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Hero Component</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        /*  thatshow we add font */
+        font-family: "Rubrik", sans-serif;
+        color: #444;
+        line-height: 1;
+        background-color: #000;
+      }
+
+      /* Utility class -> when centering a few componennts add to all */
+      .container {
+        width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        color: #fff;
+        height: 100vh;
+        /* it creates a stack of image one being on top of other. can add multiple images */
+        background-image: linear-gradient(
+            rgba(34, 34, 34, 0.6),
+            rgba(34, 34, 34, 0.6)
+          ),
+          url(hero.jpg);
+        background-size: cover;
+        position: relative;
+      }
+
+      h1 {
+        font-size: 52px;
+        margin-bottom: 32px;
+        line-height: 1.05;
+      }
+
+      nav {
+        font-weight: 700;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 32px;
+        /* background-image: linear-gradient(to right, red, blue); */
+
+        /* background-color: green; */
+      }
+
+      /* Why not width & margin for inner component to position? 
+        cuz it is being centered by the margin auto placing it with the new margin will be cumbersome & it will not remain in center with the fixed margin like in auto. Prefer transform absolute to position it will remain responsive*/
+      .header-container {
+        width: 1200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /* related to element */
+        transform: translate(-50%, -50%);
+      }
+
+      /* it can also be done via adjusting the transform value and not inserting another div or by adjusting the left value 
+      disadvntgs-> in future if content changes its so easy to just change the width rather than random values || dunno fully*/
+      .header-container-inner {
+        width: 50%;
+      }
+
+      /* always use 4 classes with 'a' tag */
+      .btn:link,
+      .btn:visited {
+        /* By default a is inline so padding margin won't work*/
+        display: inline-block;
+        font-size: 20px;
+        font-weight: 600;
+        background-color: #e67e22;
+        text-decoration: none;
+        padding: 16px 32px;
+        border-radius: 9px;
+        color: #fff;
+      }
+
+      p {
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 48px;
+      }
+
+      h2 {
+        font-size: 44px;
+        margin-bottom: 48px;
+      }
+
+      section {
+        padding: 96px 0;
+        background-color: #f7f7f7;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <!-- use div cuz its nav bar -->
+        <div>LOGO</div>
+        <div>NAVIGATION</div>
+      </nav>
+      <!-- don't put unnecessary divs -->
+      <div class="header-container">
+        <div class="header-container-inner">
+          <h1>A healthy meal delivered to your door, every single day</h1>
+          <p>
+            A healthy meal delivered to your door, every single day The smart
+            365-days-per-year food subscription that will make you eat healty
+            algain. Tailored to your personal tastes and nutritional needs
+          </p>
+          <a href="#" , class="btn">Start Eating Well</a>
+        </div>
+      </div>
+    </header>
+    <section>
+      <!-- for centering the content enclose it in a div -->
+      <div class="container">
+        <h2>Heading 2</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam iusto
+          corporis doloremque vel cum error necessitatibus veniam fugit, magni
+          autem praesentium illo hic libero cupiditate molestias reiciendis
+          animi repellendus debitis.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
+
+<!-- Q -> Where to use rem, vh, %, px -->
+<!-- /* first style from top to bottom then layout -> structural thinking */ -->
+<!-- /* Positioning an element to an odd position-> absolute & transform , using width and margin is cumbersome*/ -->
+<!-- /* class selectors have more priority than ele selectors
+  priority -> inline styles > IDs > classes/attri/pseudo-classes > elements & pseduo elements */ -->

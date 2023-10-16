@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App Layout</title>
+    <!-- 2d layout -> css grid -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: sans-serif;
+        color: #343a40;
+        font-size: 24px;
+        font-weight: bold;
+        height: 100vh;
+        text-align: center;
+        /* text -align gets inherited */
+        display: grid;
+        grid-template-columns: 80px 400px 1fr 250px;
+        grid-template-rows: 80px 1fr;
+      }
+      nav,
+      section,
+      aside,
+      main {
+        padding-top: 24px;
+      }
+
+      nav {
+        background-color: black;
+        color: #fff;
+        /* -1 will work even if we add new rows */
+        grid-row: 1/-1;
+      }
+
+      menu {
+        background-color: pink;
+        grid-column: 2/-1;
+        display: flex;
+        /* align-items -> stretch is default in flexbox thatswhy btn ele strectch to top */
+        align-items: center;
+        gap: 18px;
+        padding: 0 40px;
+      }
+
+      /* in btn we always need to remove bordr and set cursor */
+      button {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 8px 12px;
+        border-radius: 3px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background-color: purple;
+      }
+
+      /* last child is applies to the set of ele's not container */
+      button:last-child {
+        background-color: red;
+        /* ########Trick for moving ele to the right in flex-> margin auto */
+        margin-left: auto;
+      }
+
+      section {
+        background-color: grey;
+        padding: 40px;
+        display: flex;
+        gap: 40px;
+        flex-direction: column;
+        /* overflow works indivudally no flexbox req */
+        overflow: scroll;
+      }
+
+      aside {
+        background-color: lightgray;
+      }
+
+      .email {
+        /* by default flex items are allowed to shrink || flex shrink = 1 */
+        flex-shrink: 0;
+        height: 96px;
+        /* for centering an item inside a div
+            :: it works cuz flex treats text as a fex item */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: aqua;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>Nav</nav>
+    <menu>
+      <button>New</button>
+      <button>Reply</button>
+      <button>Forward</button>
+      <button>Mark Unread</button>
+      <button>Trash</button>
+    </menu>
+    <section>
+      <div class="email">Email 1</div>
+      <div class="email">Email 2</div>
+      <div class="email">Email 3</div>
+      <div class="email">Email 4</div>
+      <div class="email">Email 5</div>
+      <div class="email">Email 6</div>
+      <div class="email">Email 7</div>
+      <div class="email">Email 8</div>
+      <div class="email">Email 9</div>
+      <div class="email">Email 10</div>
+      <div
+    </section>
+    <main>Email View</main>
+    <aside>Additional info</aside>
+  </body>
+</html>
+<!-- nav vs menu -> menu is just treated as ul, used in web app whereas nav can be anything which contains links
+nav is used for groups of internal links (a elements). Generally this means the links should travel to separate pages, or change content in the case of an AJAX page. Expect some sort of content change when clicking on a nav item.
+menu is used for groups of controls (a, input, button). Generally this means the inputs should perform a function within the page. Expect some sort of javascript interaction when clicking on a menu item.
+nav: the navigation for the site.
+menu: the menu for a web application.-->
