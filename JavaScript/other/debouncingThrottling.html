@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <input type="text" onkeyup="getData()" />
+    <script>
+      let count = 0;
+      const getData = () => {
+        console.log("..Fetching", count++);
+      };
+    </script>
+  </body>
+</html>
+
+<!-- Need for debouncing don't wanna make these much api calls rather only call when the user takes a pause after typing > high performance -->

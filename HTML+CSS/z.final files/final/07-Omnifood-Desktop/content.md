@@ -131,6 +131,8 @@ Privacy & terms
 
 ######
 
+(First make the sections roughly then organize and merge them -> Refer the video to get the method)
+
 ## Sections
 
 - Logo + Navigation

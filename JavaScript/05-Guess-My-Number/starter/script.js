@@ -1,7 +1,7 @@
 'use strict';
-// console.log(document.querySelector('.message').textContent);
+// console.log(document.querySelector('.message').textContent); textContent -> for every dom ele
 // document.querySelector('.message').textContent = '🥳 Correct Number';
-// //value property
+// //value property (for form elements)
 // document.querySelector('.guess').value = 21;
 
 // data imp to application is called state of the application like secret number and score in this case.

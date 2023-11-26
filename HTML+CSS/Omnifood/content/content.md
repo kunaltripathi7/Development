@@ -119,10 +119,28 @@ Create account
 Sign in
 iOS app
 Android app
+
 About Omnifood
 For Business
 Cooking partners
 Careers
+
 Recipe directory
 Help center
 Privacy & terms
+
+######
+
+(First make the sections roughly then organize and merge them -> Refer the video to get the method)
+
+## Sections
+
+- Logo + Navigation
+- Hero
+- Featured in
+- How it works
+- Meals (and list of diets)
+- Testimonials + gallery
+- Pricing + features
+- CTA
+- Footer

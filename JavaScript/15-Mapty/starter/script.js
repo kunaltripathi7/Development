@@ -111,7 +111,7 @@ class App {
   }
 
   _setLocalStorage() {
-    // simple api, blocking(bad) || KV pairs boths strings
+    // simple api, blocking(bad) || KV pairs both strings
     localStorage.setItem('workouts', JSON.stringify(this.#workouts));
     // map hasn't yet been loaded and we are trying to add marker to it hence undefined || async
     // workout.click doesn't works / lost the prtype chain of objects when got from local strg

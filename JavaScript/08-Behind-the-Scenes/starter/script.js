@@ -8,7 +8,7 @@
 // const firstName = 'Kunal'; gives error as declared after
 
 // ------------------------------------------------------------------------
-// var firstName = 'Mal'; //  it will make the arrow function work. || another problem with var. as it will get into window object. 
+// var firstName = 'Mal'; //  it will make the arrow function work. || another problem with var. as it will get into window object. (cuz var has func. lvl scoping)
 // const demo = {
 //     firstName : "fafdaf",
 //     arrrow : () => {
@@ -22,17 +22,16 @@
 
 //  conc : never use an arrow func as a method.
 
-
 const jonas = {
-    year : 2000,
-    calcAge : function () {
-        console.log("ff");
-        const demo = function () {
-            console.log(this);
-            console.log(this.year);
-        }
-        demo(); // will output undefined cuz this is just a regular func call as if it would be in the global scope.
-    }
+  year: 2000,
+  calcAge: function () {
+    console.log('ff');
+    const demo = function () {
+      console.log(this);
+      console.log(this.year);
+    };
+    demo(); // will output undefined cuz this is just a regular func call as if it would be in the global scope.
+  },
 };
 
 // jonas.calcAge();

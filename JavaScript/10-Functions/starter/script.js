@@ -28,7 +28,6 @@
 
 // createBooking('LH123', undefined, 1000); // way of skipping the default parameter in a function (declare it undefined)
 
-
 ///////////////////////////////////////
 // How Passing Arguments Works: Values vs. Reference
 // const flight = 'LH234';
@@ -66,29 +65,28 @@
 // newPassport(jonas);
 // checkIn(flight, jonas);
 
-
 ///////////////////////////////////////
 // // Functions Accepting Callback Functions
 // const oneWord = function (str) {
 //     return str.replace(/ /g, '').toLowerCase(); // g stands for global (i.e it will not stop executing after finding the first instance)
 //   };
-  
+
 //   const upperFirstWord = function (str) {
 //     const [first, ...others] = str.split(' ');
 //     return [first.toUpperCase(), ...others].join(' ');
 //   };
-  
+
 //   // Higher-order function
 //   const transformer = function (str, fn) {
 //     console.log(`Original string: ${str}`); // use template literals always
 //     console.log(`Transformed string: ${fn(str)}`);
-  
+
 //     console.log(`Transformed by: ${fn.name}`);
 //   };
-  
+
 //   transformer('JavaScript is the best!', upperFirstWord);// upperFirstWord & oneWord -> Callback functions
 //   transformer('JavaScript is the best!', oneWord);
-  
+
 //   // JS uses callbacks all the time
 //   const high5 = function () {
 //     console.log('👋');
@@ -120,7 +118,6 @@
 
 // greetArr('Hi')('Jonas');
 
-
 ///////////////////////////////////////
 // // The call and apply Methods
 // const lufthansa = {
@@ -129,6 +126,7 @@
 //   bookings: [],
 //   // book: function() {}
 //   book(flightNum, name) {
+//     console.log(this);
 //     console.log(
 //       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
 //     );
@@ -147,8 +145,9 @@
 
 // const book = lufthansa.book;
 
-// // Does NOT work
-// // book(23, 'Sarah Williams'); // cuz this keyword doesn't works on normal func declarations n this func is not a meth now. || Problem (can't work in func expressions as well as it points to global obj there)
+// Does NOT work
+// book(23, 'Sarah Williams'); // cuz this keyword doesn't works on normal func declarations n this func is not a meth now. || Problem (can't work in func expressions as well as it points to global obj there)
+// In strict the default binding of this is undefined same when calling from a func.
 
 // // Call method (Solution:)  Point this to specified object
 // // The property names for all the objs should be same.
@@ -167,8 +166,8 @@
 // book.call(swiss, 583, 'Mary Cooper');
 
 // // Apply method does the same thing but uses array as all args for func's (obsolete)
-// const flightData = [583, 'George Cooper']; 
-// book.apply(swiss, flightData); // 
+// const flightData = [583, 'George Cooper'];
+// book.apply(swiss, flightData); //
 // console.log(swiss);
 
 // book.call(swiss, ...flightData); // same task as apply
@@ -183,13 +182,12 @@
 
 // bookEW(23, 'Steven Williams');
 
-// const bookEW23 = book.bind(eurowings, 23); // keeping constraints on some arguments or predefining them 
+// const bookEW23 = book.bind(eurowings, 23); // keeping constraints on some arguments or predefining them
 // // concept is known as partial application
 // bookEW23('Jonas Schmedtmann');
 // bookEW23('Martha Cooper');
 
 // // use case -> defining a general function then modifying the same func according to various objs needs
-
 
 // // With Event Listeners
 // // In an event handler fucn this keyword is always attached points to the ele on which the handler is attached to
@@ -217,7 +215,6 @@
 // console.log(addVAT(100));
 // console.log(addVAT(23));
 
-
 // // it was asking to make a func to preset the value
 // const addTaxRate = function (rate) {
 //   return function (value) {
@@ -227,7 +224,6 @@
 // const addVAT2 = addTaxRate(0.23);
 // console.log(addVAT2(100));
 // console.log(addVAT2(23));
-
 
 ///////////////////////////////////////
 // Coding Challenge #1
@@ -255,7 +251,7 @@ Here are your tasks:
 
 HINT: Use many of the tools you learned about in this and the last section 😉
 
-BONUS: Use the 'displayResults' method to display the 2 arrays in the test data. Use both the 'array' and the 'string' option. Do NOT put the arrays in the poll object! So what shoud the this keyword look like in this situation?
+BONUS: Use the 'displayResults' method to display the 2 arrays in the test data. Use both the 'array' and the 'string' option. Do NOT put the arrays in the poll object! So what should the this keyword look like in this situation?
 
 BONUS TEST DATA 1: [5, 2, 3]
 BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
@@ -273,7 +269,7 @@ GOOD LUCK 😀
 //         else if (type === 'string')
 //         // console.log('Poll results are', ...this.answers);
 //         console.log(`Poll results are ${this.answers.join(', ')}`);
-//     },  
+//     },
 //     registerNewAnswer() {
 //         // const input = Number(prompt (`What is your favourite programming language?\n
 //         // 0: JavaScript\n
@@ -287,8 +283,8 @@ GOOD LUCK 😀
 //         //betterway concl : don't hardcode anything
 //         // this will not work here cuz it refers to the obj that the event was called button :)
 //         this.displayResults('string');
-//     } 
-// }; 
+//     }
+// };
 
 // document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer.bind(poll));
 
@@ -305,7 +301,6 @@ GOOD LUCK 😀
 
 // poll.displayResults.call(newObj2);
 
-
 ///////////////////////////////////////
 // // Immediately Invoked Function Expressions (IIFE)
 // const runOnce = function () {
@@ -318,20 +313,19 @@ GOOD LUCK 😀
 //     console.log('This will never run again');
 //     const isPrivate = 23;
 //   })(); // inside is the value and then we call it with bracks
-  
+
 //   // console.log(isPrivate);
 
 //   // were used for data encapsulation and data privacy but since var and let create their own scope i.e block scoped so no need of IIFE now
-  
+
 //   (() => console.log('This will ALSO never run again'))();
-  
+
 //   {
 //     const isPrivate = 23;
 //     var notPrivate = 46;
 //   }
 //   // console.log(isPrivate);
 //   console.log(notPrivate);
-
 
 ///////////////////////////////////////
 // // Closures
@@ -355,13 +349,12 @@ GOOD LUCK 😀
 // console.dir(booker);  //console.dir() is the way to see all the properties of a specified JavaScript object in console
 // //[[]] in console represents we can't access its an internal property.
 
-
 // ///////////////////////////////////////
 // // More Closure Examples
 // // Example 1
 // let f;
 
-// // closure happens even when the variable is not defined inside, its just assigned here. 
+// // closure happens even when the variable is not defined inside, its just assigned here.
 // const g = function () {
 //   const a = 23;
 //   f = function () {

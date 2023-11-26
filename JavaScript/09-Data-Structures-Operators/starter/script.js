@@ -4,7 +4,6 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
-  
 // 🔴 Delayed Departure from FAO to TXL (11h25)
 //              Arrival from BRU to FAO (11h45)
 //   🔴 Delayed Arrival from HEL to FAO (12h05)
@@ -29,35 +28,40 @@ const flights =
 // }
 
 // better way of doing this
-const city = str => str.slice(0,3).toUpperCase();
+const city = str => str.slice(0, 3).toUpperCase();
 
 for (const entries of flights.split('+')) {
   // for performing different operations on diff variables (limited) use destructuring
   const [type, from, to, time] = entries.split(';');
-  const output = `${type.startsWith('_Delayed') ? '🔴' : ''}${type.replaceAll('_', ' ')} from ${city(from)} to ${city(to)} (${time.replace(':', 'h')})`.padStart(50);
+  const output = `${type.startsWith('_Delayed') ? '🔴' : ''}${type.replaceAll(
+    '_',
+    ' '
+  )} from ${city(from)} to ${city(to)} (${time.replace(':', 'h')})`.padStart(
+    50
+  );
   // can't use if statements inside template literal rather use ternary
   console.log(output);
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-  const weekdays = ['mon', 'tue', 'thur'];
-  const openingHours = {
-    // thu: {
-    [weekdays[2]] : {  // [any expression] = [`${2+2}`]
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  };
+const weekdays = ['mon', 'tue', 'thur'];
+const openingHours = {
+  // thu: {
+  [weekdays[2]]: {
+    // [any expression] = [`${2+2}`]
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
 
 // Data needed for first part of the section
 const restaurant = {
@@ -68,28 +72,28 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  
+
   // enhanced object literals just write openingHours
   openingHours, // creates a property name same as variable name
 
   //doesn't need to care about the order of the arguments
-  delivery : function({name, starterIndex, mainMenuIndex, time}) {
-    console.log(`order (${this.mainMenu[mainMenuIndex]}, ${this.starterMenu[starterIndex]}) will be delivered to ${name} before ${time} `);
+  delivery: function ({ name, starterIndex, mainMenuIndex, time }) {
+    console.log(
+      `order (${this.mainMenu[mainMenuIndex]}, ${this.starterMenu[starterIndex]}) will be delivered to ${name} before ${time} `
+    );
   },
-  orderPasta : function (ing1, ing2, ing3) {
+  orderPasta: function (ing1, ing2, ing3) {
     console.log(`${ing1}, ${ing2}, ${ing3}`);
   },
-  orderPizza : function (mainIngredient, ...other) {
+  orderPizza: function (mainIngredient, ...other) {
     console.log(mainIngredient);
     console.log(other);
-  }
+  },
   // orderPizza(mainIngredient, ...other) { new method writing syntax
   //   console.log(mainIngredient);
   //   console.log(other);
   // }
-}; 
-
-
+};
 
 ///////////////////////////////////////
 // Coding Challenge #4
@@ -131,7 +135,7 @@ GOOD LUCK 😀
 //   // for (let index = 0; index<values.length; index++) {
 //   //   const str = String(values[index]).toLowerCase().trim();
 //   //   const cInd = str.indexOf('_');
-//   //   const newStr = (str.slice(0, cInd) + str[cInd+1].toUpperCase() + str.slice(cInd+2)).padEnd(30, ' ') + '✅'.repeat(index+1);  
+//   //   const newStr = (str.slice(0, cInd) + str[cInd+1].toUpperCase() + str.slice(cInd+2)).padEnd(30, ' ') + '✅'.repeat(index+1);
 //   //   values[index] = newStr;
 //   // }
 //   // console.log(values.join('\n'));
@@ -149,10 +153,10 @@ GOOD LUCK 😀
 // Working With Strings - Part 2
 
 // // Split and join
-// console.log('a+very+nice+string'.split('+')); // returns array 
+// console.log('a+very+nice+string'.split('+')); // returns array
 // console.log('Jonas Schmedtmann'.split(' '));
 
-// const [firstName, lastName] = 'Jonas Schmedtmann'.split(' '); // *** 
+// const [firstName, lastName] = 'Jonas Schmedtmann'.split(' '); // ***
 
 // const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
 // console.log(newName);
@@ -170,9 +174,9 @@ GOOD LUCK 😀
 
 // capitalizeName('jessica ann smith davis');
 // capitalizeName('jonas schmedtmann');
-// // There are 7 primitive types: string , number , bigint , boolean , symbol , null and undefined 
+// // There are 7 primitive types: string , number , bigint , boolean , symbol , null and undefined
 
-// // Padding  
+// // Padding
 // const message = 'Go to gate 23!';
 // console.log(message.padStart(20, '+').padEnd(30, '+'));
 // console.log('Jonas'.padStart(20, '+').padEnd(30, '+'));
@@ -199,7 +203,6 @@ GOOD LUCK 😀
 // planesInLine(3);
 // planesInLine(12);
 
-
 ///////////////////////////////////////
 // Working With Strings - Part 2
 
@@ -217,11 +220,11 @@ GOOD LUCK 😀
 
 // // Comparing emails
 // const email = 'hello@jonas.io';
-// const loginEmail = '  Hello@Jonas.Io \n'; // emails are not case sensitive 
+// const loginEmail = '  Hello@Jonas.Io \n'; // emails are not case sensitive
 
 // // const lowerEmail = loginEmail.toLowerCase();
-// // const trimmedEmail = lowerEmail.trim(); 
-// const normalizedEmail = loginEmail.toLowerCase().trim(); //lowercase returns string so call meth on that     
+// // const trimmedEmail = lowerEmail.trim();
+// const normalizedEmail = loginEmail.toLowerCase().trim(); //lowercase returns string so call meth on that
 // console.log(normalizedEmail);
 // console.log(email === normalizedEmail);
 
@@ -262,7 +265,6 @@ GOOD LUCK 😀
 // checkBaggage('Socks and camera');
 // checkBaggage('Got some snacks and a gun for protection');
 
-
 ///////////////////////////////////////
 // Working With Strings - Part 1
 // const airline = 'TAP Air Portugal';
@@ -271,7 +273,7 @@ GOOD LUCK 😀
 // console.log(plane[0]);
 // console.log(plane[1]);
 // console.log(plane[2]);
-// console.log('B737'[0]);  
+// console.log('B737'[0]);
 
 // console.log(airline.length);
 // console.log('B737'.length);
@@ -286,7 +288,7 @@ GOOD LUCK 😀
 // console.log(airline.slice(0, airline.indexOf(' '))); // extracting word by word
 // console.log(airline.slice(airline.lastIndexOf(' ') + 1));
 
-// console.log(airline.slice(-2)); 
+// console.log(airline.slice(-2));
 // console.log(airline.slice(1, -1));
 
 // const checkMiddleSeat = function (seat) {
@@ -307,8 +309,6 @@ GOOD LUCK 😀
 // console.log(typeof new String('jonas').slice(1)); // all string methods return primitives (JS converts in back)
 // const s = 'sfs';
 // console.log(typeof(s)); //string
-
-
 
 ///////////////////////////////////////
 // Coding Challenge #3
@@ -344,14 +344,13 @@ GOOD LUCK 😀
 // console.log(events);
 // // 2.
 // gameEvents.delete(64);
-// // 3. 
+// // 3.
 // console.log(90/gameEvents.size);
 // // 4.
 // for (const [key, value] of gameEvents) {
 //   const str = (key <= 45) ? 'First Half' : 'Second Half';
 //   console.log(str, key, value);
 // }
-
 
 /////////////////////////////////////// 4 types of ds in js
 // Maps: Iteration (obj vs map \\ map can have any type of key but obj key can only be string)
@@ -373,7 +372,7 @@ GOOD LUCK 😀
 
 // // Quiz app
 // console.log(question.get('question'));
-// for (const [key, value] of question) { // we convert obj to iterable by obj.entries while maps are iterable 
+// for (const [key, value] of question) { // we convert obj to iterable by obj.entries while maps are iterable
 //   if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
 // }
 // // const answer = Number(prompt('Your answer'));
@@ -387,7 +386,6 @@ GOOD LUCK 😀
 // // console.log(question.entries());
 // console.log([...question.keys()]); // question.keys() also works fine with iterator
 // console.log([...question.values()]);
-
 
 // ///////////////////////////////////////
 // // Maps: Fundamentals
@@ -410,7 +408,7 @@ GOOD LUCK 😀
 // const time = 8;
 // console.log(rest.get(time > rest.get('open') && time < rest.get('close'))); // showing power of boolean as map's keys
 
-// console.log(rest.has('categories')); // hasOn for obj   
+// console.log(rest.has('categories')); // hasOn for obj
 // rest.delete(2); // objects are slow in deletion using delte operator
 // // rest.clear();
 
@@ -421,8 +419,6 @@ GOOD LUCK 😀
 // console.log(rest.size);
 
 // console.log(rest.get(arr));
-
-
 
 ///////////////////////////////////////
 // Sets (can contain mix types)
@@ -455,12 +451,10 @@ GOOD LUCK 😀
 // console.log(staffUnique);
 
 // console.log(
-//   new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size 
+//   new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
 // );
 
 // console.log(new Set('jonasschmedtmann').size);
-
-
 
 ///////////////////////////////////////
 // Coding Challenge #2
@@ -527,7 +521,7 @@ GOOD LUCK 😀
 // };
 
 // // 1
-// for (const [i, player] of game.scored.entries()) console.log(`Goal ${i+1} : ${player}`); 
+// for (const [i, player] of game.scored.entries()) console.log(`Goal ${i+1} : ${player}`);
 // // 2
 // let avg = 0;
 // const odds = Object.values(game.odds);
@@ -537,7 +531,7 @@ GOOD LUCK 😀
 // // 3
 // const oddsName = Object.entries(game.odds); // entries don't store the indexes values (only in case of arrays)
 // console.log(oddsName);
-// for (const [keys, val] of oddsName) { 
+// for (const [keys, val] of oddsName) {
 //   // keys === 'x' && console.log(`Odd of Draw : ${val}`);
 //   // keys !== 'x' && console.log(`Odd of ${game[`${keys}`]} : ${val}`);
 //   // logical assignment does the work but use it there where you need to perform some task irrespective if its true or false
@@ -555,7 +549,6 @@ GOOD LUCK 😀
 //   else scorers[x] = 1;
 // }
 // console.log(scorers);
-
 
 ///////////////////////////////////////
 // // Looping Objects: Object Keys, Values, and Entries
@@ -583,13 +576,10 @@ GOOD LUCK 😀
 //   console.log(`On ${day} we open at ${open} and close at ${close}`);
 // }
 
-
-
-
 // // Optional Chaining
 
 // if (restaurant.openingHours && restaurant.openingHours.mon)
-//   console.log(restaurant.openingHours.mon.open); // the problem 
+//   console.log(restaurant.openingHours.mon.open); // the problem
 
 // // console.log(restaurant.openingHours.mon.open);
 
@@ -611,7 +601,7 @@ GOOD LUCK 😀
 // console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exist');
 
 // // Arrays (can be used to check if array is empty)
-// const users = [{ name: 'Jonas', email: 'hello@jonas.io' }]; 
+// const users = [{ name: 'Jonas', email: 'hello@jonas.io' }];
 // // const users = [];
 
 // console.log(users[0]?.name ?? 'User array empty');
@@ -619,14 +609,12 @@ GOOD LUCK 😀
 // if (users.length > 0) console.log(users[0].name);
 // else console.log('user array empty');
 
-
-// object literal -> the syntax from which we create the obj. - some enhancement in es6. 
-
+// object literal -> the syntax from which we create the obj. - some enhancement in es6.
 
 // // The for-of Loop
 // const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
-// for (const item of menu) console.log(item); // can use break and continue 
+// for (const item of menu) console.log(item); // can use break and continue
 
 // for (const [i, el] of menu.entries()) { //destructure for better code
 //   console.log(`${i + 1}: ${el}`);
@@ -658,15 +646,14 @@ GOOD LUCK 😀
 // // 6
 // function printGoals (...players) {
 //   for (let i=0; i<players.length; i++) console.log(players[i]);
-// } 
+// }
 // printGoals('Davies', 'Muller', 'Lewandowski','Kimmich');
 
 // // 7
 // team1<team2 && console.log('Team1 is more likely to win');
 // team2<team1 && console.log('Team2 is more likely to win');
 
-
-// // Logical Assignment Operators ES2021 
+// // Logical Assignment Operators ES2021
 // const rest1 = {
 //   name: 'Capri',
 //   // numGuests: 20,
@@ -700,8 +687,7 @@ GOOD LUCK 😀
 // // summary : or assignment || nullish assignment is used when we want to add the value if it doesn't exist and keep it the same if it exists.
 // // and -> if exists = change it, if not exists = remain same
 
-
-// // The Nullish Coalescing Operator ES2020  
+// // The Nullish Coalescing Operator ES2020
 // restaurant.numGuests = 0;
 // const guests = restaurant.numGuests || 10;
 // console.log(guests);
@@ -710,12 +696,11 @@ GOOD LUCK 😀
 // const guestCorrect = restaurant.numGuests ?? 10;
 // console.log(guestCorrect);
 
-
 // // Short Circuiting (&& and ||) // means the expression is not evaluated completely and the result is given accordingly.
 
 // console.log('---- OR ----'); // returns the 1st truthy value
 // // Use ANY data type, return ANY data type, short-circuiting
-// console.log(3 || 'Jonas'); // in case of or if 1st val is truthy immediately return that value 
+// console.log(3 || 'Jonas'); // in case of or if 1st val is truthy immediately return that value
 // console.log('' || 'Jonas');
 // console.log(true || 0);
 // console.log(undefined || null);  // if all values are falsy then the evaluation continues and the last val is returned. same for AND.
@@ -745,8 +730,6 @@ GOOD LUCK 😀
 
 //summary : AND = if something is true then do this., OR = keep performing until the 1st one becomes true.
 
-
-
 // // Rest Pattern and Parameters
 // // opposite of spread -> packs elements whereas spread unpacks
 // // 1) Destructuring
@@ -755,7 +738,7 @@ GOOD LUCK 😀
 // const arr = [1, 2, ...[3, 4]];
 
 // // REST, because on LEFT side of =
-// const [a, b, ...others] = [1, 2, 3, 4, 5]; // rest pattern basically collects all the unused elements in the destructuring assignment (thatswhy its called rest (remaining)) 
+// const [a, b, ...others] = [1, 2, 3, 4, 5]; // rest pattern basically collects all the unused elements in the destructuring assignment (thatswhy its called rest (remaining))
 // console.log(a, b, others);
 
 // const [pizza, , risotto, ...otherFood] = [
@@ -788,7 +771,7 @@ GOOD LUCK 😀
 // restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
 // restaurant.orderPizza('mushrooms');
 
-//  **** summary : rest pattern is used where we otherwise write variable names seperated by commas and spread operator is used where we otherwise write values sepertaed by commas.
+//  **** summary : rest pattern is used where we otherwise write variable names seperated by commas and spread operator is used where we otherwise write values seperated by commas.
 
 // // Spread Operator :
 
@@ -820,7 +803,6 @@ GOOD LUCK 😀
 // restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
 // restaurant.orderPasta(...ingredients); // ES6 syntax (automatically assigns it to function arguments)
 
-
 // // Objects (from es2018, spread also works with obj even though they are not iterables)
 // const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Guiseppe' };
 // console.log(newRestaurant);
@@ -841,8 +823,7 @@ GOOD LUCK 😀
 
 // // changing the name of properties variables.
 // const {menu = [], starterMenu : starters = []} = restaurant;
-// console.log(menu, starters); 
-
+// console.log(menu, starters);
 
 // Mutating variables
 // let a = 222;
@@ -865,7 +846,6 @@ GOOD LUCK 😀
 //   name : 'histeria'
 // });
 
-
 // Destructuring arrays
 // Destructuring -> unpacking obj/arr into smaller variables.
 // const arr = [1,2,3];
@@ -876,7 +856,7 @@ GOOD LUCK 😀
 
 // const [x, , y] = arr; // leaving a hole in between to select 3rd and 1st
 // changing values of variables by destructuring
-// [x, y] = [y, x]; 
+// [x, y] = [y, x];
 
 // nested destructuring
 // const arr = [1,2,3, [6,7]];
@@ -886,4 +866,3 @@ GOOD LUCK 😀
 // default values
 // const [p=1,q=1,r=1] = [9,8];
 // console.log(p,q,r);
-

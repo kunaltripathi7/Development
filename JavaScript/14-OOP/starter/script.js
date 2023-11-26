@@ -3,42 +3,43 @@
 ///////////////////////////////////////
 // Constructor Functions and the new Operator (special functions called by new operator)
 // convention to use 1st Capital letter for constructor func.
-const Person = function (firstName, birthYear) { // arrow func don't work cuz they don't have this keyword
-    // Instance properties
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  
-    // Never do this!, it will create one func. for each obj created from this func., use prototype
-    // this.calcAge = function () {
-    //   console.log(2037 - this.birthYear);
-    // }; 
-  };
-  
-  const jonas = new Person('Jonas', 1991); // at the end the this keyword is returned
-  console.log(jonas);
-  
-  // 1. New {} is created
-  // 2. function is called, this = {}
-  // 3. {} linked to prototype
-  // 4. function automatically return {}
-  
-  const matilda = new Person('Matilda', 2017);
-  const jack = new Person('Jack', 1975);
-  
-  console.log(jonas instanceof Person);
+const Person = function (firstName, birthYear) {
+  // arrow func don't work cuz they don't have this keyword
+  // Instance properties
+  this.firstName = firstName;
+  this.birthYear = birthYear;
 
-  
-  Person.hey = function () { // its same as static method
-    console.log('Hey there 👋');
-    console.log(this); // thisalways points to obj calling the meth so Person
-  };
-  Person.hey();
+  // Never do this!, it will create one func. for each obj created from this func., use prototype
+  // this.calcAge = function () {
+  //   console.log(2037 - this.birthYear);
+  // };
+};
 
-  //////////////////////////////////////
+const jonas = new Person('Jonas', 1991); // at the end the this keyword is returned
+console.log(jonas);
+
+// 1. New {} is created
+// 2. function is called, this = {}
+// 3. {} linked to prototype
+// 4. function automatically return {}
+
+const matilda = new Person('Matilda', 2017);
+const jack = new Person('Jack', 1975);
+
+console.log(jonas instanceof Person);
+
+Person.hey = function () {
+  // its same as static method
+  console.log('Hey there 👋');
+  console.log(this); // this always points to obj calling the meth so Person
+};
+Person.hey();
+
+//////////////////////////////////////
 // Prototypes
 // Each func automatically has prototype property, Similarly constructor func. So every obj gets access to all the properties & meths defined on cons. func.'s prototype property. || Any object has access to properties & meths of its prototype.
 // why prototypal -> When JavaScript was created, it was intended to be a lightweight scripting tool. The prototypal model offered a simple way to add object-oriented capabilities without introducing the complexities of a full class system., simplicity.
-console.log(Person.prototype); // func's also has prototype which is known as prototype property cuz it is not a ref to another obj. || person.ptype is an obj thatswhy we can add meth to that. 
+console.log(Person.prototype); // func's also has prototype which is known as prototype property cuz it is not a ref to another obj. || person.ptype is an obj thatswhy we can add meth to that.
 
 Person.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
@@ -48,7 +49,7 @@ jonas.calcAge(); // prototype of this is person.prototype
 matilda.calcAge();
 
 console.log(jonas.__proto__); // ptype of jonas obj is ptype prprty of constructor func.
-console.log(jonas.__proto__ === Person.prototype);  //Person.prototype is not the prtype of person
+console.log(jonas.__proto__ === Person.prototype); //Person.prototype is not the prtype of person
 
 console.log(Person.prototype.isPrototypeOf(jonas)); // step 3 of new creates a new property proto and sets it value to prototype prprty of cons func.
 console.log(Person.prototype.isPrototypeOf(matilda));
@@ -63,8 +64,7 @@ console.log(jonas.species, matilda.species);
 console.log(jonas.hasOwnProperty('firstName'));
 console.log(jonas.hasOwnProperty('species'));
 
-console.dir(Person); 
-
+console.dir(Person);
 
 /// EVERY OBJECT HAS ITS PROTOTYPE IN JS
 ///////////////////////////////////////
@@ -83,7 +83,7 @@ console.log(arr.__proto__ === Array.prototype);
 console.log(arr.__proto__.__proto__);
 
 Array.prototype.unique = function () {
-  return [...new Set(this)];
+  return [...new Set(this)]; // creates a func to filter duplicates on arr
 }; // not preferred adding ptype to built ins
 
 console.log(arr.unique());
@@ -106,12 +106,16 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 GOOD LUCK 😀
 */
 
-const Car = function(make, speed) {
+const Car = function (make, speed) {
   this.make = make;
   this.speed = speed;
-}
-Car.prototype.accelerate = function() { this.speed += 10};
-Car.prototype.brake = function() {this.speed -= 5};
+};
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+};
+Car.prototype.brake = function () {
+  this.speed -= 5;
+};
 // const car1 = new Car("Ferrari", 200);
 // car1.accelerate();
 // car1.accelerate();
@@ -120,13 +124,14 @@ Car.prototype.brake = function() {this.speed -= 5};
 
 ///////////////////////////////////////
 // ES6 Classes
- // behind the scenes classes are still functions.
+// behind the scenes classes are still functions.
 // Class expression
 // const PersonCl = class {}
 
 // Class declaration
 class PersonCl {
-  constructor(fullName, birthYear) { //needs to be constructor name
+  constructor(fullName, birthYear) {
+    //needs to be constructor name
     this.fullName = fullName;
     this.birthYear = birthYear;
   }
@@ -141,13 +146,15 @@ class PersonCl {
     console.log(`Hey ${this.fullName}`);
   }
 
-  get age() { // just like a property
+  get age() {
+    // just like a property
     return 2037 - this.birthYear;
   }
 
   // Set a property that already exists (conflict b/w setter and cons property name stack overflow)
   set fullName(name) {
-    if (name.includes(' ')) this._fullName = name; // name the property a new name to avoid conflict. Cons("", "") full name is called & redirects to setter w/o creating the fullName prop and setter creates _fullName. BAscially it overrides that.
+    if (name.includes(' ')) this._fullName = name;
+    // name the property a new name to avoid conflict. Cons("", "") full name is called & redirects to setter w/o creating the fullName prop and setter creates _fullName. BAscially it overrides that.
     else alert(`${name} is not a full name!`);
   }
 
@@ -175,7 +182,7 @@ console.log(jessica.__proto__ === PersonCl.prototype);
 jessica.greet();
 
 // 1. Classes are NOT hoisted
-// 2. Classes are first-class citizens || cuz classes == func
+// 2. Classes are first-class citizens || cuz classes == func // stored as value
 // 3. Classes are executed in strict mode
 
 const walter = new PersonCl('Walter White', 1965);
@@ -191,7 +198,8 @@ const account = {
     return this.movements.slice(-1).pop();
   },
 
-    set latest(mov) { // setter will have exactly one var
+  set latest(mov) {
+    // setter will have exactly one var
     this.movements.push(mov);
   },
 };
@@ -201,19 +209,19 @@ console.log(account.latest);
 account.latest = 50; // basically adds as a property with the name of the get & set method
 console.log(account.movements);
 
-
 ///////////////////////////////////////
 // Object.create    /// used to manually set an obj's prototype
-// const PersonProto = {
-//   calcAge() {
-//     console.log(2037 - this.birthYear);
-//   },
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
 
-//   init(firstName, birthYear) { // any meth like const inside ptype of obj just another way
-//     this.firstName = firstName;
-//     this.birthYear = birthYear;
-//   },
-// };
+  init(firstName, birthYear) {
+    // any meth like const inside ptype of obj just another way
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
 
 const steven = Object.create(PersonProto);
 console.log(steven);
@@ -259,7 +267,7 @@ GOOD LUCK 😀
 //   }
 
 //   set speedUs(speed) {
-//     this.speed = speed*1.6; 
+//     this.speed = speed*1.6;
 //   }
 
 // }
@@ -267,7 +275,6 @@ GOOD LUCK 😀
 // const car1 = new Car("Ferrari", 196);
 // // car1.speedUs = 76;
 // console.log(car1.speedUs);
-
 
 ///////////////////////////////////////
 // Inheritance Between "Classes": Constructor Functions
@@ -324,19 +331,22 @@ GOOD LUCK 😀
 const EV = function (make, speed, charge) {
   Car.call(this, make, speed);
   this.charge = charge;
-}
+};
 EV.prototype = Object.create(Car.prototype);
 // EV.prototype.constructor = EV;
 
-EV.prototype.chargeBattery = function(chargeTo) {
+EV.prototype.chargeBattery = function (chargeTo) {
   this.charge = chargeTo;
-}
+};
 
-EV.prototype.accelerate = function () { // u r adding the accelerate method on EV.prototype not car.prototype both r diff obj's
+EV.prototype.accelerate = function () {
+  // u r adding the accelerate method on EV.prototype not car.prototype both r diff obj's
   this.speed += 20;
   this.charge -= 1;
-  console.log(`Tesla going at ${this.speed} km/h, with a charge of ${this.charge}%`);
-}
+  console.log(
+    `Tesla going at ${this.speed} km/h, with a charge of ${this.charge}%`
+  );
+};
 
 const fe = new EV('Ferrari', 50, 90);
 fe.accelerate();
@@ -346,109 +356,107 @@ fe.accelerate();
 ///////////////////////////////////////
 // Inheritance Between "Classes": ES6 Classes
 
-class PersonCl {
-  constructor(fullName, birthYear) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-  }
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
 
-  // Instance methods
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  }
+//   // Instance methods
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   }
 
-  greet() {
-    console.log(`Hey ${this.fullName}`);
-  }
+//   greet() {
+//     console.log(`Hey ${this.fullName}`);
+//   }
 
-  get age() {
-    return 2037 - this.birthYear;
-  }
+//   get age() {
+//     return 2037 - this.birthYear;
+//   }
 
-  set fullName(name) {
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
+//   set fullName(name) {
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
 
-  get fullName() {
-    return this._fullName;
-  }
+//   get fullName() {
+//     return this._fullName;
+//   }
 
-  // Static method
-  static hey() {
-    console.log('Hey there 👋');
-  }
-}
+//   // Static method
+//   static hey() {
+//     console.log('Hey there 👋');
+//   }
+// }
 
-class StudentCl extends PersonCl {
-  constructor(fullName, birthYear, course) {
-    // Always needs to happen first! cuz othrwise we won't be able to access this keyword. Before you can set any properties on this in the derived class, you need to make sure the parent class has done its initialization. Make the instance related to parent class.
-    super(fullName, birthYear);
-    this.course = course; // If u don't have any extra prprty then don't create this cons func it automatically initializes the parent class cons.
-  }
+// class StudentCl extends PersonCl {
+//   constructor(fullName, birthYear, course) {
+//     // Always needs to happen first! cuz othrwise we won't be able to access this keyword. Before you can set any properties on this in the derived class, you need to make sure the parent class has done its initialization. Make the instance related to parent class.
+//     super(fullName, birthYear);
+//     this.course = course; // If u don't have any extra prprty then don't create this cons func it automatically initializes the parent class cons.
+//   }
 
-  introduce() {
-    console.log(`My name is ${this.fullName} and I study ${this.course}`);
-  }
+//   introduce() {
+//     console.log(`My name is ${this.fullName} and I study ${this.course}`);
+//   }
 
-  calcAge() {
-    console.log(
-      `I'm ${
-        2037 - this.birthYear
-      } years old, but as a student I feel more like ${
-        2037 - this.birthYear + 10
-      }`
-    );
-  }
-}
+//   calcAge() {
+//     console.log(
+//       `I'm ${
+//         2037 - this.birthYear
+//       } years old, but as a student I feel more like ${
+//         2037 - this.birthYear + 10
+//       }`
+//     );
+//   }
+// }
 
-const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
-martha.introduce();
-martha.calcAge();
+// const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+// martha.introduce();
+// martha.calcAge();
 
+// ///////////////////////////////////////
+// // Inheritance Between "Classes": Object.create
 
-///////////////////////////////////////
-// Inheritance Between "Classes": Object.create
+// const PersonProto = {
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   },
 
-const PersonProto = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
+//   init(firstName, birthYear) {
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   },
+// };
 
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
+// const steven = Object.create(PersonProto);
 
-const steven = Object.create(PersonProto);
+// const StudentProto = Object.create(PersonProto);
+// StudentProto.init = function (firstName, birthYear, course) {
+//   PersonProto.init.call(this, firstName, birthYear);
+//   this.course = course;
+// };
 
-const StudentProto = Object.create(PersonProto);
-StudentProto.init = function (firstName, birthYear, course) {
-  PersonProto.init.call(this, firstName, birthYear);
-  this.course = course;
-};
+// StudentProto.introduce = function () {
+//   // BUG in video:
+//   // console.log(`My name is ${this.fullName} and I study ${this.course}`);
 
-StudentProto.introduce = function () {
-  // BUG in video:
-  // console.log(`My name is ${this.fullName} and I study ${this.course}`);
-  
-  // FIX:
-  console.log(`My name is ${this.firstName} and I study ${this.course}`);
-};
+//   // FIX:
+//   console.log(`My name is ${this.firstName} and I study ${this.course}`);
+// };
 
-const jay = Object.create(StudentProto);
-jay.init('Jay', 2010, 'Computer Science');
-jay.introduce();
-jay.calcAge();
-
+// const jay = Object.create(StudentProto);
+// jay.init('Jay', 2010, 'Computer Science');
+// jay.introduce();
+// jay.calcAge();
 
 ///////////////////////////////////////
 // Encapsulation: Protected Properties and Methods
 // Encapsulation: Private Class Fields and Methods
 // Not available now || Properties == fields
 
-// 1) Public fields 
+// 1) Public fields
 // 2) Private fields
 // 3) Public methods
 // 4) Private methods
@@ -568,10 +576,10 @@ class CarCl {
 
   set speedUS(speed) {
     this.speed = speed * 1.6;
-  } 
+  }
 }
 
-class  EVCl extends CarCl {
+class EVCl extends CarCl {
   #charge;
 
   constructor(make, speed, charge) {
@@ -588,6 +596,6 @@ class  EVCl extends CarCl {
 
   chargeBattery(val) {
     this.charge = val;
-    return this.
+    return this.val;
   }
 }
