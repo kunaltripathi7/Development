@@ -61,6 +61,7 @@ function App() {
 }
 
 // observe everything as compo and create a hierarchy to avoid spaghetti code i.e it could work nesting all compo inside app but make it seperate.
+// props => transfer data from parent compo to child compo
 
 function Header() {
   return (
