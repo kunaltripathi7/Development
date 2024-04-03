@@ -1,4 +1,5 @@
 import { useState } from "react";
+// In a typical React application, when you import a CSS file in the main entry point (such as index.js), the styles are applied globally throughout the application by default.
 const initialFriends = [
   {
     id: 118836,
@@ -71,12 +72,10 @@ function Friend({ obj, children }) {
         <h3>{obj.identity}</h3>
         {children}
       </div>
-      {/* <button className="button" onClick={}>Select</button> */}
+      <button className="button" onClick={}>Select</button>
     </div>
   );
 }
-
-function Sidebar() {}
 
 function AddFriend({ onAdd }) {
   const [open, SetOpen] = useState(false);
@@ -113,6 +112,25 @@ function AddFriendInfo({ onAdd }) {
       <button className="button" onClick={() => onAdd(name, image)}>
         Add
       </button>
+    </div>
+  );
+}
+
+function Sidebar({ friend }) {
+  return (
+    <div className="sidebar">
+      <h3>Split bill with {friend.name}</h3>
+      <form>
+        <label>Bill Value</label> <input type="text" />
+        <label>Your Expense</label> <input type="text" />
+        <label>{friend.name} Expense</label> <input type="text" />
+        <label>Who's Paying the bill?</label>{" "}
+        <select>
+          <option>You?</option>
+          <option>{friend.name}</option>
+        </select>
+        <button>Split Bill</button>
+      </form>
     </div>
   );
 }
