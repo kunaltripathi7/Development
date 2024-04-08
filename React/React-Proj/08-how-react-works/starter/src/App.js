@@ -37,12 +37,20 @@ function Tabbed({ content }) {
         <Tab num={2} activeTab={activeTab} onClick={setActiveTab} />
         <Tab num={3} activeTab={activeTab} onClick={setActiveTab} />
       </div>
-
       {activeTab <= 2 ? (
-        <TabContent item={content.at(activeTab)} />
+        <TabContent
+          item={content.at(activeTab)}
+          key={content.at(activeTab).summary} // resetting state with key prop
+        />
       ) : (
-        <DifferentContent />
+        <DifferentContent /> //same position diff compo resets state.
       )}
+      {/* {console.log(DifferentContent())}
+      {
+        TabContent({ item: content[1] })
+        /*It doesn't consider it as compo instance
+      hence it gives the raw react element which violates rules of using hooks
+      as well. can't store its own state as well, gets stored in parent */}
     </div>
   );
 }
@@ -98,3 +106,6 @@ function DifferentContent() {
     </div>
   );
 }
+
+// KT :
+// as we move to different tabs the tabContent compo stays in same place so it preserves the state on rerender when we change tab. -> Diffing in practice. inner text content changes because the props it receives changes.

@@ -72,7 +72,7 @@ function Friend({ obj, children }) {
         <h3>{obj.identity}</h3>
         {children}
       </div>
-      <button className="button" onClick={}>Select</button>
+      {/* <button className="button">Select</button> */}
     </div>
   );
 }
