@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-// import "./index.css";
-// import App from "./App";
+import "./index.css";
+import App from "./App-V1";
 import StarRating from "./StarRating";
 
 // if user wants to display some content based on state -> external state functionality provide
@@ -20,15 +20,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {
-      /* <App /> */
-      <>
-        <StarRating
-          maxRating={5}
-          messages={["Terrible", "Bad", "Okay", "Good", "Amazing"]}
-          defaultRating={3}
-        />
-        <Test />
-      </>
+      <App />
+      // <>
+      //   <StarRating
+      //     maxRating={5}
+      //     messages={["Terrible", "Bad", "Okay", "Good", "Amazing"]}
+      //     defaultRating={3}
+      //   />
+      //   <Test />
+      // </>
     }
   </React.StrictMode>
 );
