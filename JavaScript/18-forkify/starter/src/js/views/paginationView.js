@@ -1,3 +1,6 @@
+//Optimised to the deepest -> All scenarios :
+// 1st page -> no prev, then last page no next etc
+// upon creating even a small property think where it is most suitable like currpage -> state not in this class.
 import icons from 'url:../../img/icons.svg';
 import View from './view';
 class PaginationView extends View {

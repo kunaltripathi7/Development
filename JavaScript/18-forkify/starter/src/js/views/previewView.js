@@ -2,6 +2,8 @@ import View from './view';
 import icons from 'url:../../img/icons.svg';
 
 class PreviewView extends View {
+  // using previewview as a child of the bookmarks and resultsview
+  _parentEle = '';
   _parentEle = '';
   _generateMarkup() {
     const id = window.location.hash.slice(1);
