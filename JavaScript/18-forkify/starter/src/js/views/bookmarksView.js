@@ -5,11 +5,13 @@ class BookmarkView extends View {
   _errorMessage = `No Bookmarks yet!`;
   _message = '';
 
-  addHandlerBookmarks (handler) {
+  addHandlerBookmarks(handler) {
     window.addEventListener('load', handler);
   }
   _generateMarkup() {
-    return this._data.map(bookmark => previewView.render(bookmark, false)).join('');
+    return this._data
+      .map(bookmark => previewView.render(bookmark, false))
+      .join('');
   }
 }
 export default new BookmarkView();
