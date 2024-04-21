@@ -1,78 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
-
-const tempMovieData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt0133093",
-    Title: "The Matrix",
-    Year: "1999",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt6751668",
-    Title: "Parasite",
-    Year: "2019",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
-  },
-];
-
-const tempWatchedData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-    runtime: 148,
-    imdbRating: 8.8,
-    userRating: 10,
-  },
-  {
-    imdbID: "tt0088763",
-    Title: "Back to the Future",
-    Year: "1985",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-    runtime: 116,
-    imdbRating: 8.5,
-    userRating: 9,
-  },
-];
+import { useMovies } from "./useMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
+import { useKey } from "./useKey";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const Key = "6a9816ab"; // declared outside so it doesn't get created on each rerender.
+const Key = "6a9816ab";
 
 export default function App() {
-  const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
-  const [error, setError] = useState(""); // dynamic change -> new State
   const [query, setQuery] = useState("");
   const [selectedId, setselectedId] = useState(null);
-  // fetch(`http://www.omdbapi.com/?apikey=${Key}&s=interstellar`)
-  //   .then((res) => res.json()) problem -> use effect solution
-  //   .then((data) => setMovies(data.Search)); // infinite loop state update -> rerender -> state update
 
-  // useEffect(function() {
-  //   console.log('A');
-  // }, [])
+  // const [watched, setWatched] = useState(function () {
+  //   const storedValue = localStorage.getItem("watched");
+  //   return JSON.parse(storedValue);
+  // }); // pure func & no params || runs on intial render only
 
-  // useEffect(function() {
-  //   console.log('B');
-  // });
-  // output -> CAB
-  // console.log('C');
+  const { movies, error, isLoading } = useMovies(query);
+
+  // useState(localStorage.getItem("watched");); don't call a func in useState it will execute on every rerender instead declare a func.
+
+  const [watched, setWatched] = useLocalStorageState([], "watched"); // subsequent renders are done if state/props change || this is done via some hooks used inside custom hooks || this is normal js func.
 
   function handleSelectedId(id) {
     setselectedId((selectedId) => (selectedId === id ? null : id));
@@ -84,53 +34,22 @@ export default function App() {
 
   function handleAddMovie(movie) {
     setWatched((watched) => [...watched, movie]);
+    // localStorage.setItem("watched", JSON.stringify([...watched, movie])); // stale state
   }
 
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
-  // multiple http req fired -> what if 1st one takes much longer -> that one's results will be displayed at last -> race condition -> abort controller
+  // useEffect(
+  //   // why this meth ? -> automatically deletes the watched as well -> synchronizes with ui ele
+  //   function () {
 
-  useEffect(
-    // this fits into normal event handler
-    function () {
-      // effect hook expects to return a cleanup or nothing not a promise
-      const controller = new AbortController(); // browser api just like fetch
-      async function fetchMovies() {
-        setError("");
-        setisLoading(true); // no infinite loop cuz -> dependency array makes it run differently from the rendered code reacts to dependencies.
-        try {
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${Key}&s=${query}`,
-            { signal: controller.signal }
-          );
-          if (!res.ok) throw new Error("Something went wrong");
-          const data = await res.json();
-          if (data.Response === "False") throw new Error("Movie not found");
-          setMovies(data.Search);
-        } catch (err) {
-          if (err.name !== "AbortError") setError(err.message);
-        } finally {
-          setisLoading(false);
-        }
-      }
-      if (query.length < 3) {
-        setMovies([]);
-        setError("");
-        return;
-      }
-      handleMovieDisplay();
-      fetchMovies();
+  //     localStorage.setItem("watched", JSON.stringify(watched));
+  //   },
+  //   [watched]
+  // );
 
-      return function () {
-        controller.abort(); // cancels prev http request
-      };
-    },
-    [query]
-  ); //[] -> only on mount |||||| useeffect registers the side effect so that it doesn't run when component renders but after it is painted.
-
-  // prop drilling - passing props in a deeper level
   return (
     <>
       <NavBar>
@@ -138,9 +57,9 @@ export default function App() {
         <NumResults movies={movies} />
       </NavBar>
       <Main>
-        {/* <Box element={<MovieList movies={movies} />}/> another way but children is preferred || used in react router */}
+        {}
         <Box>
-          {/* {isLoading ? <Loader /> : <MovieList movies={movies} IMP - lifting up */}
+          {}
           {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList movies={movies} onSelectId={handleSelectedId} />
@@ -170,9 +89,7 @@ export default function App() {
   );
 }
 
-// seperation on logic
 function NavBar({ children }) {
-  // prop drilling fixed by compo composition -Break down larger components into smaller, reusable components that only receive the props they need.
   return (
     <nav className="nav-bar">
       <Logo />
@@ -196,8 +113,34 @@ function NumResults({ movies }) {
   </p>;
 }
 
-// broke due to reusability
 function Search({ query, setQuery }) {
+  const inputEl = useRef(null);
+  useKey("Enter", function () {
+    if (document.activeElement === inputEl.current) return;
+    inputEl.current.focus();
+    setQuery("");
+  });
+  // useEffect(
+  //   function () {
+  //     const callback = function (e) {
+  //       if (document.activeElement === inputEl.current) return;
+  //       if (e.code === "Enter") inputEl.current.focus();
+  //       setQuery("");
+  //     };
+  //     document.addEventListener("keydown", callback);
+
+  //     return function () {
+  //       document.removeEventListener("keydown", callback);
+  //     };
+  //   },
+  //   [setQuery]
+  // );
+
+  // useEffect(function () {
+  //   const el = document.querySelector(".search");
+  //   el.focus();
+  // }, []); // problems -> React favours declarative appro & not touching dom manually. Solution -> Refs (used in useEffect cuz ref connects after dom is loaded & useeffect also runs after the dom is loaded) || thatswhy not mutate the ref in render logic
+
   return (
     <input
       className="search"
@@ -205,6 +148,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 }
@@ -212,7 +156,6 @@ function Main({ children }) {
   return <main className="main">{children}</main>;
 }
 
-//reusable box compo {IMPOrtant}
 function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
@@ -232,28 +175,6 @@ function ErrorMessage({ message }) {
   return <p className="error">{message}</p>;
 }
 
-// function WatchedBox() {
-//   const [watched, setWatched] = useState(tempWatchedData);
-//   const [isOpen2, setIsOpen2] = useState(true);
-//   return (
-//     <div className="box">
-//       <button
-//         className="btn-toggle"
-//         onClick={() => setIsOpen2((open) => !open)}
-//       >
-//         {isOpen2 ? "–" : "+"}
-//       </button>
-//       {isOpen2 && (
-//         <>
-//           <WatchedSummary watched={watched} />
-//           <WatchedMoviesList watched={watched} />
-//         </>
-//       )}
-//     </div>
-//   );
-// }
-
-// seperation due to better readability/ understanding of compo
 function MovieList({ movies, onSelectId }) {
   return (
     <ul className="list list-movies">
@@ -264,10 +185,8 @@ function MovieList({ movies, onSelectId }) {
   );
 }
 
-// break into finer pieces -> more possibilities
 function Movie({ movie, onSelectId }) {
   return (
-    // expects a func reference thatswhy
     <li key={movie.imdbID} onClick={() => onSelectId(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
@@ -284,13 +203,22 @@ function Movie({ movie, onSelectId }) {
 function MovieDetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setisLoading] = useState(false);
-  const [userRating, setUserRating] = useState(""); // making ext state to get the internal rating of star compo
+  const [userRating, setUserRating] = useState("");
+
+  const countRef = useRef(0);
+
+  useEffect(
+    function () {
+      if (userRating) countRef.current++;
+    },
+    [userRating]
+  );
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
 
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
-  )?.userRating; // clever way
+  )?.userRating;
 
   const {
     Title: title,
@@ -305,8 +233,26 @@ function MovieDetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
     Genre: genre,
   } = movie;
 
+  /* eslaantnt diisable*/
+  // if (imdbRating > 8) [isTop, setIsTop] = useState(""); // treated as const
+  // if (imdbRating > 8) return <p>Hola</p>
+
+  // const [isTop, setIsTop] = useState(imdbRating > 8);
+  // console.log(isTop);
+  // useEffect(
+  //   function () {
+  //     setIsTop(imdbRating > 8);
+  //   },
+  //   [imdbRating]
+  // );
+  // same functionality -> derived state
+  // const isTop = imdbRating > 8;
+  // console.log(isTop);
+  // useState is asynchronous
+
+  // const [avgRating, setAvgRating] = useState(0);
+
   function handleAdd() {
-    // new obj -> optimize only necessary info
     const newWatchedMovie = {
       imdbID: selectedId,
       title,
@@ -315,26 +261,30 @@ function MovieDetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
+      CountRatingDecisions: countRef,
     };
     onAddMovie(newWatchedMovie);
     onCloseMovie();
+
+    // setAvgRating(Number(imdbRating));
+    // setAvgRating((avgRating) => (avgRating + userRating) / 2); // avoid stale state by passing a func -> updates the avgRating first then calc. Why? asynchronous so by passing a func(callback) it assures that it runs only when updated state is set
   }
 
-  useEffect(
-    function () {
-      // escape hatch
-      function callback(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
-      document.addEventListener("Keydown", callback);
-      return function () {
-        document.removeEventListener("keydown", callback); // otherwise attaches multiple event listeners
-      };
-    },
-    [onCloseMovie]
-  );
+  useKey("Escape", onCloseMovie);
+  // useEffect(
+  //   function () {
+  //     function callback(e) {
+  //       if (e.code === "Escape") {
+  //         onCloseMovie();
+  //       }
+  //     }
+  //     document.addEventListener("keydown", callback);
+  //     return function () {
+  //       document.removeEventListener("keydown", callback);
+  //     };
+  //   },
+  //   [onCloseMovie]
+  // );
 
   useEffect(
     function () {
@@ -354,14 +304,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
 
   useEffect(
     function () {
-      // changing title is a side effect || each useeffect does one thing
       if (!title) return;
       document.title = `Movie | ${title}`;
 
       return function () {
         document.title = "usePopcorn";
-        // cleanup func. only runs after the compo unmounts means obj is also destroyed. How it remembers the title then. -> closure (not the whole obj but at the time the func was created the title name was inception so it remembers that)
-        console.log(`Movie with ${title}`);
       };
     },
     [title]
@@ -378,7 +325,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
               &larr;
             </button>
             <img src={poster} alt={`Poster of ${movie} movie`} />
-            {/* enclose every small component in a div tag */}
+            {}
             <div className="details-overview">
               <h2>{title}</h2>
               <p>
@@ -386,7 +333,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
               </p>
               <p>{genre}</p>
               <p>
-                {/* even a small star in span tag */}
+                {}
                 <span>⭐️</span>
                 {imdbRating} IMDb rating
               </p>
@@ -490,8 +437,3 @@ function WatchedMovie({ movie, onDeleteWatched }) {
     </li>
   );
 }
-
-// KT :
-//  Deeper Componentisation.
-// strict mode -> 2 renders only in development
-//Why not direct async? cuz effect callbacks need to be synchronous to avoid race conditions. react wants effects to execute in predictable order.

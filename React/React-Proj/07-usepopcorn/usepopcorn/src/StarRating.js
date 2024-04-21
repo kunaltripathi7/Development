@@ -76,8 +76,8 @@ export default function StarRating({
 function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
   const starStyle = {
     /// wasn't appearing because of no height
-    width: "48px",
-    heigth: "48px",
+    width: `${size}px`,
+    heigth: `${size}px`,
     display: "block",
     cursor: "pointer",
     color,

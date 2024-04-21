@@ -22,115 +22,193 @@ const initialFriends = [
 ];
 
 export default function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false); // place the state where the compo is been displayed if state contains open/close func.
+  const [friends, setFriends] = useState(initialFriends);
+  const [selectedFriend, setSelectedFriend] = useState(null);
+
+  function handleShowAddFriend() {
+    setShowAddFriend((showAddFriend) => !showAddFriend);
+  }
+
+  function handleAddFriend(newFriend) {
+    const newArr = [...friends, newFriend];
+    setFriends(newArr);
+    setShowAddFriend(false);
+  }
+
+  function handleSelection(friend) {
+    // think like this two sidebars need ot communicate state should be inapp and handler func passed down
+    // setSelectedFriend(friend);
+    setSelectedFriend((selected) =>
+      selected?.id === friend.id ? null : friend
+    );
+    setShowAddFriend(false);
+  }
+
+  function handleSplitBill(value) {
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    ); // new Array in state
+    setSelectedFriend(null); // reuse the closing functionality already set
+  }
+
   return (
     <div className="app">
-      <Friends />
+      <div className="sidebar">
+        <Friends
+          friends={friends}
+          onSelection={handleSelection}
+          selectedFriend={selectedFriend}
+        />
+        {showAddFriend && <AddFriend onAddFriend={handleAddFriend} />}
+        {/* Add friend window belongs to this sidebar not in friend compo -> placement*/}
+        <Button onClick={handleShowAddFriend}>
+          {showAddFriend ? "close" : "Add Friend"}
+        </Button>
+      </div>
+      {selectedFriend && (
+        <Sidebar
+          selectedFriend={selectedFriend} // automatically handling sidebar closing/opening
+          onSplitBill={handleSplitBill}
+          key={selectedFriend.id} // for resetting the state if we go to another compo
+        />
+      )}
     </div>
   );
 }
 
-function Friends() {
-  const [friends, SetNewFriend] = useState([...initialFriends]);
-  function handleAddFriend(name, imageUrl) {
+function Friends({ friends, onSelection, selectedFriend }) {
+  return (
+    <ul>
+      {friends.map((obj) => (
+        <Friend
+          obj={obj}
+          onSelection={onSelection}
+          selectedFriend={selectedFriend}
+        />
+      ))}
+    </ul>
+  );
+}
+
+function Friend({ obj, onSelection, selectedFriend }) {
+  const isSelected = selectedFriend?.id === obj.id; // no repeat
+  return (
+    <li className={isSelected ? "selected" : ""}>
+      <img src={obj.image} alt="profile" />
+      <h3>{obj.name}</h3>
+      {obj.balance === 0 && <p>You and {obj.name} are even</p>}
+      {obj.balance > 0 && (
+        <p className="red">
+          You owe {obj.balance} to {obj.name}
+        </p>
+      )}
+      {obj.balance < 0 && (
+        <p className="green">
+          You gave {obj.balance * -1} to {obj.name}
+        </p>
+      )}
+      <button className="button" onClick={() => onSelection(obj)}>
+        {isSelected ? "Close" : "Select"}
+      </button>
+    </li>
+  );
+}
+
+function AddFriend({ onAddFriend }) {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("https://i.pravatar.cc/48");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!name || !image) return;
+    const id = crypto.randomUUID();
     const newFriend = {
-      id: imageUrl.substring(imageUrl.indexOf("=") + 1),
+      id, // builtin way of generating id (browsers func)
       name,
-      image: imageUrl,
+      image: `${image}?=${id}`,
       balance: 0,
     };
-    const newArr = [...friends, newFriend];
-    SetNewFriend(newArr);
+    onAddFriend(newFriend);
+    setImage("https://i.pravatar.cc/48"); // resetting states after submitting
+    setName("");
   }
-  return (
-    <div>
-      {friends.map((f) => {
-        if (f.balance > 0)
-          return (
-            <Friend obj={f}>
-              `{f.name} owes you ${f.balance}`
-            </Friend>
-          );
-        else if (f.balance === 0)
-          return <Friend obj={f}>`You and {f.name} are even`</Friend>;
-        else
-          return (
-            <Friend obj={f}>
-              `You Owe {f.name} ${f.balance}`
-            </Friend>
-          );
-      })}
-      <AddFriend onAdd={handleAddFriend} />
-    </div>
-  );
-}
 
-function Friend({ obj, children }) {
   return (
-    <div>
-      <img src={obj.image} alt="profile-picture" />
-      <div>
-        <h3>{obj.identity}</h3>
-        {children}
-      </div>
-      {/* <button className="button">Select</button> */}
-    </div>
-  );
-}
-
-function AddFriend({ onAdd }) {
-  const [open, SetOpen] = useState(false);
-  function handleClick() {
-    SetOpen((open) => !open);
-  }
-  return (
-    <div>
-      {open && <AddFriendInfo onAdd={onAdd} />}
-      <button className="button" onClick={handleClick}>
-        {!open ? `Add Friend` : "Close"}
-      </button>
-    </div>
-  );
-}
-
-function AddFriendInfo({ onAdd }) {
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("https://i.pravatar.cc/48?u=933372");
-  return (
-    <div>
-      <p>Friend Name</p>{" "}
+    <form className="form-add-friend" onSubmit={handleSubmit}>
+      <label>🙍Friend Name</label>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <p>Image Url</p>{" "}
+      <label>📷Image Url</label>
       <input
         type="text"
         value={image}
-        onChange={(e) => setImage(e.target.value)}
+        onChange={(e) => setImage(e.target.value)} // inputs value attri is used to fetch value from option ele
       />
-      <button className="button" onClick={() => onAdd(name, image)}>
-        Add
-      </button>
-    </div>
+      <Button>Add</Button>
+    </form>
   );
 }
 
-function Sidebar({ friend }) {
+function Sidebar({ selectedFriend, onSplitBill }) {
+  // visualize where the data is flowing like on splitting the bill -> the data goes back to left sidebar and account updates the balance.
+  const [bill, setBill] = useState();
+  const [expense, setExpense] = useState(0);
+  const [payer, setPayer] = useState("");
+  const calcExpense = bill > 0 ? bill - expense : 0;
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!bill || !payer) return;
+    // onSplit((friends) => friends);
+    // onChangeSidebar();
+    onSplitBill(payer === "you" ? calcExpense : -expense);
+  }
+
   return (
-    <div className="sidebar">
-      <h3>Split bill with {friend.name}</h3>
-      <form>
-        <label>Bill Value</label> <input type="text" />
-        <label>Your Expense</label> <input type="text" />
-        <label>{friend.name} Expense</label> <input type="text" />
-        <label>Who's Paying the bill?</label>{" "}
-        <select>
-          <option>You?</option>
-          <option>{friend.name}</option>
-        </select>
-        <button>Split Bill</button>
-      </form>
-    </div>
+    // use form incase there is a btn and some input fields kinda thing
+    <form className="form-split-bill" onSubmit={handleSubmit}>
+      <h2>Split bill with {selectedFriend.name}</h2>
+      <label>💲Bill Value</label>
+      <input type="text" onChange={(e) => setBill(+e.target.value)} />
+      <label>💲Your Expense</label>
+      <input
+        type="text"
+        onChange={(e) =>
+          setExpense(+e.target.value > bill ? 0 : +e.target.value)
+        }
+      />
+      <label>🙍{selectedFriend.name} Expense</label>
+      <input type="text" disabled value={calcExpense} />
+      <label>❓Who's Paying the bill?</label>
+      <select onChange={(e) => setPayer(e.target.value)}>
+        <option>You?</option>
+        <option>{selectedFriend.name}</option>
+      </select>
+      <Button>Split Bill</Button>
+    </form>
   );
 }
+
+function Button({ children, onClick }) {
+  // build a reusable if used multiple times
+  return (
+    <button className="button" onClick={onClick}>
+      {children}
+    </button>
+  );
+}
+
+/*
+Mistakes :
+wrong way of componentisation
+naming
+state placement
+*/

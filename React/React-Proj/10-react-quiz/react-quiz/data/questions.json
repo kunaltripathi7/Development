@@ -1,0 +1,338 @@
+{
+  "questions": [
+    {
+      "question": "Which is the most popular JavaScript framework?",
+      "options": ["Angular", "React", "Svelte", "Vue"],
+      "correctOption": 1,
+      "points": 10
+    },
+    {
+      "question": "Which company invented React?",
+      "options": ["Google", "Apple", "Netflix", "Facebook"],
+      "correctOption": 3,
+      "points": 10
+    },
+    {
+      "question": "What's the fundamental building block of React apps?",
+      "options": ["Components", "Blocks", "Elements", "Effects"],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": "What's the name of the syntax we use to describe the UI in React components?",
+      "options": ["FBJ", "Babel", "JSX", "ES2015"],
+      "correctOption": 2,
+      "points": 10
+    },
+    {
+      "question": "How does data flow naturally in React apps?",
+      "options": [
+        "From parents to children",
+        "From children to parents",
+        "Both ways",
+        "The developers decides"
+      ],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": "How to pass data into a child component?",
+      "options": ["State", "Props", "PropTypes", "Parameters"],
+      "correctOption": 1,
+      "points": 10
+    },
+    {
+      "question": "What is the primary purpose of a React component?",
+      "options": [
+        "To create reusable UI elements",
+        "To manage database operations",
+        "To handle server requests",
+        "To define CSS styles"
+      ],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": "What is the purpose of the useState hook in React?",
+      "options": [
+        "To manage state in functional components",
+        "To handle API requests",
+        "To create animations",
+        "To define routing in the application"
+      ],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": "What is JSX in React?",
+      "options": [
+        "JSX is a syntax extension that allows mixing HTML-like code with JavaScript in React components.",
+        "JSX is a JavaScript library for handling asynchronous operations.",
+        "JSX is a routing mechanism used in React applications.",
+        "JSX is a state management tool in React."
+      ],
+      "correctOption": 0,
+      "points": 10
+    },
+    {
+      "question": "What is the purpose of props in React?",
+      "options": [
+        "Props are used for passing data from parent to child components in React.",
+        "Props are used for defining CSS styles in React components.",
+        "Props are specific to class components and cannot be used in functional components.",
+        "Props are used for handling API requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 10
+    },
+
+    {
+      "question": "When to use derived state?",
+      "options": [
+        "Whenever the state should not trigger a re-render",
+        "Whenever the state can be synchronized with an effect",
+        "Whenever the state should be accessible to all components",
+        "Whenever the state can be computed from another state variable"
+      ],
+      "correctOption": 3,
+      "points": 30
+    },
+    {
+      "question": "What triggers a UI re-render in React?",
+      "options": [
+        "Running an effect",
+        "Passing props",
+        "Updating state",
+        "Adding event listeners to DOM elements"
+      ],
+      "correctOption": 2,
+      "points": 20
+    },
+    {
+      "question": "When do we directly \"touch\" the DOM in React?",
+      "options": [
+        "When we need to listen to an event",
+        "When we need to change the UI",
+        "When we need to add styles",
+        "Almost never"
+      ],
+      "correctOption": 3,
+      "points": 20
+    },
+    {
+      "question": "In what situation do we use a callback to update state?",
+      "options": [
+        "When updating the state will be slow",
+        "When the updated state is very data-intensive",
+        "When the state update should happen faster",
+        "When the new state depends on the previous state"
+      ],
+      "correctOption": 3,
+      "points": 30
+    },
+    {
+      "question": "If we pass a function to useState, when will that function be called?",
+      "options": [
+        "On each re-render",
+        "Each time we update the state",
+        "Only on the initial render",
+        "The first time we update the state"
+      ],
+      "correctOption": 2,
+      "points": 30
+    },
+    {
+      "question": "Which hook to use for an API request on the component's initial render?",
+      "options": ["useState", "useEffect", "useRef", "useReducer"],
+      "correctOption": 1,
+      "points": 10
+    },
+    {
+      "question": "Which variables should go into the useEffect dependency array?",
+      "options": [
+        "Usually none",
+        "All our state variables",
+        "All state and props referenced in the effect",
+        "All variables needed for clean up"
+      ],
+      "correctOption": 2,
+      "points": 30
+    },
+    {
+      "question": "An effect will always run on the initial render.",
+      "options": [
+        "True",
+        "It depends on the dependency array",
+        "False",
+        "In depends on the code in the effect"
+      ],
+      "correctOption": 0,
+      "points": 30
+    },
+    {
+      "question": "When will an effect run if it doesn't have a dependency array?",
+      "options": [
+        "Only when the component mounts",
+        "Only when the component unmounts",
+        "The first time the component re-renders",
+        "Each time the component is re-rendered"
+      ],
+      "correctOption": 3,
+      "points": 20
+    },
+    {
+      "question": "Explain the concept of component composition in React.",
+      "options": [
+        "It involves combining multiple smaller components to create a larger, more complex component.",
+        "It refers to the process of styling components using CSS.",
+        "It is a method for creating animations in React.",
+        "It is used for routing between different pages in a React application."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "Explain the concept of virtual DOM in React and its advantages.",
+      "options": [
+        "Virtual DOM is an in-memory representation of the actual DOM, used by React for efficient rendering and updating of UI components.",
+        "Virtual DOM reduces the number of direct DOM manipulations, leading to improved performance and a better user experience.",
+        "Virtual DOM allows React to compare the previous and current states of components to determine the minimal changes needed for updates.",
+        "Virtual DOM is only applicable to class components in React."
+      ],
+      "correctOption": 0,
+      "points": 30
+    },
+    {
+      "question": "What is Redux, and how does it complement React in state management?",
+      "options": [
+        "Redux is a predictable state container for JavaScript applications, often used with React for managing global application state.",
+        "Redux provides a centralized store for state management, making it easier to manage complex state interactions across components.",
+        "Redux integrates seamlessly with React through middleware such as `react-redux`, enabling efficient data flow and state updates.",
+        "Redux is primarily used for handling UI rendering in React applications."
+      ],
+      "correctOption": 0,
+      "points": 30
+    },
+    {
+      "question": "Explain the concept of conditional rendering in React.",
+      "options": [
+        "Conditional rendering is the process of displaying different components or content based on certain conditions in React.",
+        "Conditional rendering is a technique for optimizing React applications.",
+        "Conditional rendering is specific to class components and cannot be used in functional components.",
+        "Conditional rendering is used for handling state updates in React."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "What are React Hooks, and how do they differ from class-based components?",
+      "options": [
+        "React Hooks are functions that enable functional components to manage state and lifecycle methods, providing an alternative to class-based components.",
+        "React Hooks are specific to class components and cannot be used in functional components.",
+        "React Hooks are used for defining CSS styles in React components.",
+        "React Hooks are primarily used for handling server requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "What are React Hooks, and how do they differ from class-based components?",
+      "options": [
+        "React Hooks are functions that enable functional components to manage state and lifecycle methods, providing an alternative to class-based components.",
+        "React Hooks are specific to class components and cannot be used in functional components.",
+        "React Hooks are used for defining CSS styles in React components.",
+        "React Hooks are primarily used for handling server requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "What are React Hooks, and how do they differ from class-based components?",
+      "options": [
+        "React Hooks are functions that enable functional components to manage state and lifecycle methods, providing an alternative to class-based components.",
+        "React Hooks are specific to class components and cannot be used in functional components.",
+        "React Hooks are used for defining CSS styles in React components.",
+        "React Hooks are primarily used for handling server requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "What are React Hooks, and how do they differ from class-based components?",
+      "options": [
+        "React Hooks are functions that enable functional components to manage state and lifecycle methods, providing an alternative to class-based components.",
+        "React Hooks are specific to class components and cannot be used in functional components.",
+        "React Hooks are used for defining CSS styles in React components.",
+        "React Hooks are primarily used for handling server requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "What are React Hooks, and how do they differ from class-based components?",
+      "options": [
+        "React Hooks are functions that enable functional components to manage state and lifecycle methods, providing an alternative to class-based components.",
+        "React Hooks are specific to class components and cannot be used in functional components.",
+        "React Hooks are used for defining CSS styles in React components.",
+        "React Hooks are primarily used for handling server requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "What are React Hooks, and how do they differ from class-based components?",
+      "options": [
+        "React Hooks are functions that enable functional components to manage state and lifecycle methods, providing an alternative to class-based components.",
+        "React Hooks are specific to class components and cannot be used in functional components.",
+        "React Hooks are used for defining CSS styles in React components.",
+        "React Hooks are primarily used for handling server requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "What are React Hooks, and how do they differ from class-based components?",
+      "options": [
+        "React Hooks are functions that enable functional components to manage state and lifecycle methods, providing an alternative to class-based components.",
+        "React Hooks are specific to class components and cannot be used in functional components.",
+        "React Hooks are used for defining CSS styles in React components.",
+        "React Hooks are primarily used for handling server requests in React applications."
+      ],
+      "correctOption": 0,
+      "points": 20
+    },
+    {
+      "question": "Explain the concept of context API in React and its use cases.",
+      "options": [
+        "Context API is a feature in React for passing data through the component tree without having to pass props manually at every level.",
+        "Context API is primarily used for managing global state in React applications and avoiding prop drilling.",
+        "Context API is specific to class components and cannot be used in functional components.",
+        "Context API is used for defining routing mechanisms in React applications."
+      ],
+      "correctOption": 0,
+      "points": 30
+    },
+    {
+      "question": "What are higher-order components (HOCs) in React, and how do they work?",
+      "options": [
+        "Higher-order components are functions that take a component as input and return a new enhanced component with additional functionality.",
+        "Higher-order components are specific to class components and cannot be used with functional components.",
+        "Higher-order components are used for defining CSS styles in React components.",
+        "Higher-order components are primarily used for managing state in React applications."
+      ],
+      "correctOption": 0,
+      "points": 30
+    },
+    {
+      "question": "What are higher-order components (HOCs) in React, and how do they work?",
+      "options": [
+        "Higher-order components are functions that take a component as input and return a new enhanced component with additional functionality.",
+        "Higher-order components are specific to class components and cannot be used with functional components.",
+        "Higher-order components are used for defining CSS styles in React components.",
+        "Higher-order components are primarily used for managing state in React applications."
+      ],
+      "correctOption": 0,
+      "points": 30
+    }
+  ]
+}
