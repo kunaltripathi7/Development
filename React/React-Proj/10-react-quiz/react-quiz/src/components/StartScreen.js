@@ -1,5 +1,8 @@
-function StartScreen({ numQuestions, dispatch }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+function StartScreen() {
   // adv of useReducer (no more indi props)
+  const { numQuestions, dispatch } = useQuiz();
   return (
     <div className="start">
       <h2>Welcome to the React Quiz!</h2>

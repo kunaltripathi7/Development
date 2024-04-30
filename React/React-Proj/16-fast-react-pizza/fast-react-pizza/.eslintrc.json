@@ -1,0 +1,4 @@
+{
+  "extends": "react-app"
+}
+// tells to apply these set of rules in eslint which we have installed as dev dpendencies

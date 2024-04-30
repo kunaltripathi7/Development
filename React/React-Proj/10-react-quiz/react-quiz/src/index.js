@@ -2,10 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/App";
+import { QuizProvider } from "./contexts/QuizContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    {/*  because the app also needs the state */}
+    <QuizProvider>
+      <App />
+    </QuizProvider>
   </React.StrictMode>
 );
