@@ -9,6 +9,7 @@ function AppLayout() {
   const isLoading = navigation.state === 'loading';
 
   return (
+    // custom screen dvh applied
     <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       {isLoading && <Loader />}
       <Header />
