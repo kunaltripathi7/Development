@@ -1,0 +1,5 @@
+{
+  "extends": "react-app"
+}
+
+// tells eslint about the react rules like dependency array

@@ -18,6 +18,7 @@ export async function createEditCabin(newCabin, id) {
     "/",
     ""
   );
+
   const imagePath = hasImagePath
     ? newCabin.image
     : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;

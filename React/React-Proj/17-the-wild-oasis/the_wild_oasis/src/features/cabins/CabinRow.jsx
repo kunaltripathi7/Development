@@ -1,9 +1,9 @@
 import styled from "styled-components";
-
-import CreateCabinForm from "./CreateCabinForm";
-import { useDeleteCabin } from "./useDeleteCabin";
 import { formatCurrency } from "../../utils/helpers";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import CreateCabinForm from "./CreateCabinForm";
+import useDeleteCabin from "./useDeleteCabin";
+import { HiPencil, HiTrash } from "react-icons/hi";
+import { HiSquare2Stack } from "react-icons/hi2";
 import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -50,9 +50,6 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
-  const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { isCreating, createCabin } = useCreateCabin();
-
   const {
     id: cabinId,
     name,
@@ -63,19 +60,23 @@ function CabinRow({ cabin }) {
     description,
   } = cabin;
 
+  const { deleteCabin, isDeleting } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
+
   function handleDuplicate() {
-    createCabin({
+    const newCabin = {
       name: `Copy of ${name}`,
       maxCapacity,
       regularPrice,
       discount,
       image,
       description,
-    });
+    };
+    createCabin(newCabin);
   }
 
   return (
-    <Table.Row>
+    <Table.Row role="row">
       <Img src={image} />
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
@@ -84,42 +85,44 @@ function CabinRow({ cabin }) {
         <Discount>{formatCurrency(discount)}</Discount>
       ) : (
         <span>&mdash;</span>
-      )}
+      )}{" "}
       <div>
-        <Modal>
-          <Menus>
-            <Menus.Toggle id={cabinId} />
-
-            <Menus.List id={cabinId}>
+        {/* hierarchy is in the way it should be menus -> toggle btn -> inside list btns we need modal functionality */}
+        <Menus>
+          <Modal>
+            <Menus.Toggle id={cabin.id}></Menus.Toggle>
+            <Menus.List id={cabin.id}>
               <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
                 Duplicate
               </Menus.Button>
-
               <Modal.Open opens="edit">
                 <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
               </Modal.Open>
-
               <Modal.Open opens="delete">
                 <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
               </Modal.Open>
             </Menus.List>
-
             <Modal.Window name="edit">
               <CreateCabinForm cabinToEdit={cabin} />
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="cabins"
+              <ConfirmDelete // reusable
+                resourceName={"cabin"}
                 disabled={isDeleting}
                 onConfirm={() => deleteCabin(cabinId)}
               />
             </Modal.Window>
-          </Menus>
-        </Modal>
+          </Modal>
+        </Menus>
       </div>
     </Table.Row>
   );
 }
 
 export default CabinRow;
+
+// What we did first -> modal highly reusable compo -> compo compound pattern which gives modal func by passing btn + window;
+// Req -> Enclose Modal into menu compo cuz only 1 should open at a time. -> Structure of table (rest goes into children and need to modify only certain part of the compo - reuse rest)-> compo compound pattern suits reusability -> concl -> wrapped modal into menu
+
+//However, each row does not create a new context. Instead, all rows share the same context created by the Menus component.
