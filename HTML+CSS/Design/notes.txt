@@ -3,7 +3,7 @@ TYPOGRAPHY:
 #  sans -> inter, open sans, roboto, montserrat, work sans, lato
 # serif -> meriiweather, aleo, playfair, cormorant, cardo, lora
 
-Shadows: # Creates depth.
+Shadows: # Creates depth
 WhiteSpace:
 # Horizontally less in comparison to vertical.
 UX :

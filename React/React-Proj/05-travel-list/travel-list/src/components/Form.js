@@ -7,7 +7,7 @@ export default function Form({ onAddItems }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Date avilable on window obj.
+    // Date available on window obj.
     const item = { description, quantity, packed: false, id: Date.now() };
     onAddItems(item);
     setDescription("");
