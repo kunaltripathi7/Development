@@ -71,7 +71,7 @@ const MenusContext = createContext();
 
 function Menus({ children }) {
   const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState(null); // state in parent as need to pass to list
+  const [position, setPosition] = useState(null); //state in parent as need to pass to list
   const close = () => setOpenId("");
 
   // setter func's -> pass just like prop passing handler functions not directly setter func.
@@ -88,6 +88,7 @@ function Menus({ children }) {
 function Toggle({ id }) {
   const { open, close, openId, setPosition } = useContext(MenusContext);
   function handleClick(e) {
+    e.stopPropagation();
     const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
@@ -104,7 +105,7 @@ function Toggle({ id }) {
 
 function List({ children, id }) {
   const { openId, position, close } = useContext(MenusContext);
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClick(close, false); // when we click on the toggle both handleClicks are called -> outside one + toggle one which leads to immediate closing and reopening but now both events are handled in bubbling so stop propagation of event above.
   if (openId !== id) return null;
   return createPortal(
     <StyledList position={position} ref={ref}>

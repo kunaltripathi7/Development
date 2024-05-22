@@ -1,4 +1,7 @@
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer } from "recharts";
 import styled from "styled-components";
+import { useDarkMode } from "../../context/DarkModeContext";
+import Heading from "../../ui/Heading";
 
 const ChartBox = styled.div`
   /* Box */
@@ -113,7 +116,7 @@ function prepareData(startData, stays) {
     );
   }
 
-  const data = stays
+  const data = stays //mechanism to count numNights frequency
     .reduce((arr, cur) => {
       const num = cur.numNights;
       if (num === 1) return incArrayValue(arr, "1 night");
@@ -130,3 +133,47 @@ function prepareData(startData, stays) {
 
   return data;
 }
+
+function DurationChart({ confirmedStays }) {
+  const { isDarkMode } = useDarkMode();
+  const startData = isDarkMode ? startDataDark : startDataLight;
+  const data = prepareData(startData, confirmedStays);
+
+  return (
+    <ChartBox>
+      <Heading as="h2">Stay Duration Summary</Heading>
+      <ResponsiveContainer width="100%" height={240}>
+        <PieChart>
+          <Pie
+            data={data}
+            nameKey="duration" // name key is category -> dataKey => value
+            dataKey="value"
+            innerRadius={85}
+            outerRadius={110}
+            cx="40%" // fixing the position
+            cy="50%"
+            paddingAngle={3}
+          >
+            {data.map((entry) => (
+              <Cell
+                fill={entry.color}
+                stroke={entry.color}
+                key={entry.duration}
+              />
+            ))}
+          </Pie>
+          <Legend // shows the categories
+            verticalAlign="middle"
+            align="right"
+            width="30%"
+            layout="vertical"
+            iconSize={15}
+            iconType="circle"
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartBox>
+  );
+}
+
+export default DurationChart;

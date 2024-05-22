@@ -57,8 +57,8 @@ export async function getBookingsAfterDate(date) {
   const { data, error } = await supabase
     .from("bookings")
     .select("created_at, totalPrice, extrasPrice")
-    .gte("created_at", date)
-    .lte("created_at", getToday({ end: true }));
+    .gte("created_at", date) // date should be ISO string -> supabase req
+    .lte("created_at", getToday({ end: true })); // end = true for fixing the date -> cuz otherwise it will change every second.
 
   if (error) {
     console.error(error);
@@ -91,6 +91,7 @@ export async function getStaysTodayActivity() {
     .from("bookings")
     .select("*, guests(fullName, nationality, countryFlag)")
     .or(
+      // or recieves two conditions either can be true
       `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
     )
     .order("created_at");

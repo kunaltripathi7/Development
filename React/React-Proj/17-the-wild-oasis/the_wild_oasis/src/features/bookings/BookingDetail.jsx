@@ -7,6 +7,7 @@ import Tag from "../../ui/Tag";
 import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
+import Empty from "../../ui/Empty";
 import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner";
 import { HiArrowUpOnSquare, HiTrash } from "react-icons/hi2";
@@ -32,6 +33,8 @@ function BookingDetail() {
 
   const moveBack = useMoveBack();
   if (isLoading) return <Spinner />;
+  if (!booking) return <Empty resource="booking" />;
+
   const { id: bookingId, status } = booking;
 
   const statusToTagName = {

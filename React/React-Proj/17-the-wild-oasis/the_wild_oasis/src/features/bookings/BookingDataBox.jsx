@@ -11,7 +11,6 @@ import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
-import Checkbox from "../../ui/Checkbox";
 
 const StyledBookingDataBox = styled.section`
   /* Box */

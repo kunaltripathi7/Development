@@ -8,8 +8,8 @@ import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
   const { isLoading, bookings, count } = useBookings();
+  if (bookings.length === 0) return <Empty resource="Bookings" />;
   if (isLoading) return <Spinner />;
-  if (!bookings || bookings.length === 0) return <Empty resource="Bookings" />;
 
   return (
     <Menus>
@@ -37,3 +37,5 @@ function BookingTable() {
 }
 
 export default BookingTable;
+
+// Error Boundaries -> try catch for react render
