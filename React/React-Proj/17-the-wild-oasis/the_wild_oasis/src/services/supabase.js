@@ -5,4 +5,3 @@ const supabaseKey =
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default supabase;
-// use supabase client to perform queries

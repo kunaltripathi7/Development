@@ -128,7 +128,7 @@ export default function App() {
       };
     },
     [query]
-  ); //[] -> only on mount |||||| useeffect registers the side effect so that it doesn't run when component renders but after it is painted.
+  ); //[] -> only on mount |||||| why useEffect runs afterwards? -> useeffect registers the side effect so that it doesn't run when component renders but after it is painted.
 
   // prop drilling - passing props in a deeper level
   return (
