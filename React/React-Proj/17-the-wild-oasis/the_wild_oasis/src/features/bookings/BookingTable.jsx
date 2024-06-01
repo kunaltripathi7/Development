@@ -8,7 +8,7 @@ import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
   const { isLoading, bookings, count } = useBookings();
-  if (bookings.length === 0) return <Empty resource="Bookings" />;
+  if (!bookings || bookings.length === 0) return <Empty resource="Bookings" />;
   if (isLoading) return <Spinner />;
 
   return (

@@ -1,0 +1,21 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\2-Debugging\\045 02-using-nodemon-for-autorestarts\\02-using-nodemon-for-autorestarts\\routes.js",
+      "restart": true,
+      // restart upon saving some changes
+      "runtimeExecutable": "nodemon",
+      "console": "integratedTerminal"
+      // integrated terminal cuz nodemon to be aborted seperately when stopped debugger, nodemon will restart the server+debugger insync with debugger.
+    }
+  ]
+}
+//
