@@ -2,39 +2,42 @@ package VendingMachineRevision;
 
 import VendingMachineRevision.enums.Coin;
 
+import java.util.List;
+
 public class DispenseState implements VendingMachineState {
 
     @Override
-    public void selectItem(VendingMachine machine, int code) {
-        System.out.println("Please wait. Currently dispensing item.");
+    public void selectItem(VendingMachine machine, int code, int count) {
+        System.out.println("Currently dispensing. Please wait.");
     }
 
     @Override
     public void insertCoin(VendingMachine machine, Coin coin) {
-        System.out.println("Please wait. Currently dispensing item.");
+        System.out.println("Currently dispensing. Please wait.");
     }
 
     @Override
     public void cancel(VendingMachine machine) {
-        System.out.println("Cannot cancel mid-dispense.");
+        System.out.println("Cannot cancel during dispensing.");
     }
 
     @Override
     public void dispense(VendingMachine machine) {
-        ItemShelf shelf = machine.getInventory().getShelf(machine.getSelectedItemCode());
-        int change = machine.getCurrentBalance() - shelf.getPrice();
-        
-        System.out.println("Dropping item: " + shelf.getItemType());
-        shelf.setCount(shelf.getCount() - 1); // Decrease inventory
-        
+        int code = machine.getSelectedItemCode();
+        int count = machine.getSelectedCount();
+        ItemShelf shelf = machine.getInventory().getShelf(code);
+
+        List<Item> dispensed = shelf.removeItems(count);
+        int totalPrice = dispensed.get(0).getPrice() * count;
+        int change = machine.getCurrentBalance() - totalPrice;
+
+        System.out.println("Dispensed " + count + "x " + dispensed.get(0).getItemType());
         if (change > 0) {
             System.out.println("Returning change: ₹" + change);
         }
-        
-        // Reset the machine
-        machine.getCoins().clear();
-        machine.setSelectedItemCode(-1);
+
+        machine.resetTransaction();
         machine.setState(new ReadyState());
-        System.out.println("Vending machine resetting to Ready State. Have a nice day!\n");
+        System.out.println("Ready for next transaction.\n");
     }
 }

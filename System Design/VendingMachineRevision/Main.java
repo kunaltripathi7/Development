@@ -6,30 +6,48 @@ import VendingMachineRevision.enums.ItemType;
 public class Main {
     public static void main(String[] args) {
         VendingMachine vm = new VendingMachine();
+        fillInventory(vm);
 
-        // 1. Initialize Inventory
-        Inventory inventory = vm.getInventory();
-        inventory.setShelf(0, new ItemShelf(101, ItemType.LAYS, 10, 5));
-        inventory.setShelf(1, new ItemShelf(102, ItemType.PEPSI, 15, 2));
-        inventory.setShelf(2, new ItemShelf(103, ItemType.CHOCOLATE, 20, 0)); // Out of stock
+        System.out.println("=== Scenario 1: Select out-of-stock item ===");
+        vm.selectItem(103, 1);
 
-        System.out.println("--- Starting Vending Machine Flow ---");
+        System.out.println("\n=== Scenario 2: Select more than available ===");
+        vm.selectItem(101, 10);
 
-        // Scenario 1: Select out of stock item
-        vm.selectItem(103);
-
-        System.out.println("\n---");
-
-        // Scenario 2: Select Pepsi and pay exact amount
-        vm.selectItem(102);
+        System.out.println("\n=== Scenario 3: Buy 2x LAYS (₹10 each = ₹20) ===");
+        vm.selectItem(101, 2);
         vm.insertCoin(Coin.TEN);
-        vm.insertCoin(Coin.FIVE); // Will auto-dispense since it reaches Rs 15
+        vm.insertCoin(Coin.TEN);
 
-        System.out.println("---");
+        System.out.println("=== Scenario 4: Buy 1x PEPSI (₹15), pay ₹20, get ₹5 change ===");
+        vm.selectItem(102, 1);
+        vm.insertCoin(Coin.TWENTY);
 
-        // Scenario 3: User cancels transaction
-        vm.selectItem(101); // User selects Lays (Rs 10)
+        System.out.println("=== Scenario 5: Cancel mid-transaction ===");
+        vm.selectItem(101, 1);
         vm.insertCoin(Coin.FIVE);
-        vm.cancel(); // User changes mind
+        vm.cancel();
+
+        System.out.println("\n=== Final Inventory ===");
+        displayInventory(vm);
+    }
+
+    private static void fillInventory(VendingMachine vm) {
+        Inventory inv = vm.getInventory();
+        for (int i = 0; i < 5; i++) inv.getShelf(101).addItem(new Item(ItemType.LAYS, 10));
+        for (int i = 0; i < 3; i++) inv.getShelf(102).addItem(new Item(ItemType.PEPSI, 15));
+        // 103 left empty intentionally (out of stock)
+    }
+
+    private static void displayInventory(VendingMachine vm) {
+        for (ItemShelf shelf : vm.getInventory().getShelves()) {
+            if (shelf.isSoldOut()) {
+                System.out.println("Shelf " + shelf.getCode() + ": EMPTY");
+            } else {
+                Item item = shelf.peek();
+                System.out.println("Shelf " + shelf.getCode() + ": " + item.getItemType()
+                    + " | ₹" + item.getPrice() + " | Qty: " + shelf.getAvailableCount());
+            }
+        }
     }
 }

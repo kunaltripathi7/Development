@@ -5,35 +5,34 @@ import VendingMachineRevision.enums.Coin;
 public class PaymentPendingState implements VendingMachineState {
 
     @Override
-    public void selectItem(VendingMachine machine, int code) {
-        System.out.println("Item is already selected. Please insert money or cancel the transaction.");
+    public void selectItem(VendingMachine machine, int code, int count) {
+        System.out.println("Item already selected. Please insert money or cancel.");
     }
 
     @Override
     public void insertCoin(VendingMachine machine, Coin coin) {
-        machine.getCoins().add(coin);
-        int currentBalance = machine.getCurrentBalance();
-        ItemShelf shelf = machine.getInventory().getShelf(machine.getSelectedItemCode());
-        
-        System.out.println("Inserted ₹" + coin.getValue() + ". Total: ₹" + currentBalance + " / ₹" + shelf.getPrice());
-        
-        if (currentBalance >= shelf.getPrice()) {
-            System.out.println("Sufficient funds inserted!");
+        machine.addCoin(coin);
+        int balance = machine.getCurrentBalance();
+        int totalPrice = machine.getTotalPrice();
+
+        System.out.println("Inserted ₹" + coin.getValue() + " | Balance: ₹" + balance + " / ₹" + totalPrice);
+
+        if (balance >= totalPrice) {
+            System.out.println("Payment complete!");
             machine.setState(new DispenseState());
-            machine.dispense(); // Auto-dispense since balance is met
+            machine.dispense();
         }
     }
 
     @Override
     public void cancel(VendingMachine machine) {
-        System.out.println("Transaction cancelled. Refunding ₹" + machine.getCurrentBalance() + " in coins.");
-        machine.getCoins().clear();
-        machine.setSelectedItemCode(-1);
+        System.out.println("Transaction cancelled. Refunding ₹" + machine.getCurrentBalance());
+        machine.resetTransaction();
         machine.setState(new ReadyState());
     }
 
     @Override
     public void dispense(VendingMachine machine) {
-        System.out.println("Insufficient funds to dispense product.");
+        System.out.println("Payment not complete yet.");
     }
 }
